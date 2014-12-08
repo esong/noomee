@@ -6,3 +6,5 @@
 /build
 *.iml
 .idea
+crashlytics-build.properties
+crashlytics.properties
