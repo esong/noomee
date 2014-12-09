@@ -6,5 +6,8 @@
 /build
 *.iml
 .idea
+
+# crashlytics generated files
 crashlytics-build.properties
 crashlytics.properties
+com_crashlytics_export_strings.xml
