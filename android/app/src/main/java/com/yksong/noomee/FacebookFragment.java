@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 
 /**
  * Created by esong on 2014-12-08.
@@ -36,6 +37,9 @@ public class FacebookFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.start_activity, container, false);
+        LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
+        authButton.setFragment(this);
+
         return view;
     }
 
@@ -50,6 +54,15 @@ public class FacebookFragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        // For scenarios where the main activity is launched and user
+        // session is not null, the session state change notification
+        // may not be triggered. Trigger it if it's open/closed.
+        Session session = Session.getActiveSession();
+        if (session != null &&
+                (session.isOpened() || session.isClosed()) ) {
+            onSessionStateChange(session, session.getState(), null);
+        }
+
         uiHelper.onResume();
     }
 
