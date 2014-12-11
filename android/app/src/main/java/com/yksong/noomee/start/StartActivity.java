@@ -1,7 +1,9 @@
-package com.yksong.noomee;
+package com.yksong.noomee.start;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
+import com.yksong.noomee.start.FacebookFragment;
 
 /**
  * Created by esong on 2014-12-08.

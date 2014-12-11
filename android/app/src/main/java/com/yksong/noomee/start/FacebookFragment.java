@@ -1,4 +1,4 @@
-package com.yksong.noomee;
+package com.yksong.noomee.start;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.LoginButton;
+import com.yksong.noomee.MainActivity;
+import com.yksong.noomee.R;
 
 /**
  * Created by esong on 2014-12-08.
@@ -46,6 +48,9 @@ public class FacebookFragment extends android.support.v4.app.Fragment {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
         if (state.isOpened()) {
             Log.i(TAG, "Logged in...");
+            startActivity(new Intent(getActivity(), MainActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            getActivity().finish();
         } else if (state.isClosed()) {
             Log.i(TAG, "Logged out...");
         }
