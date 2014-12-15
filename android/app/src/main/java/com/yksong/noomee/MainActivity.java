@@ -104,7 +104,10 @@ public class MainActivity extends ActionBarActivity
                 return true;
             }
             case R.id.action_log_out: {
-                ParseFacebookUtils.getSession().closeAndClearTokenInformation();
+                Session fbSession = ParseFacebookUtils.getSession();
+                if (fbSession != null) {
+                    fbSession.closeAndClearTokenInformation();
+                }
                 ParseUser.logOut();
                 startActivity(new Intent(this, StartActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

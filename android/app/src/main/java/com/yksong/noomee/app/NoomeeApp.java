@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 import com.yksong.noomee.BuildConfig;
+import com.yksong.noomee.R;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -20,5 +22,6 @@ public class NoomeeApp extends Application {
 
         Parse.initialize(this, "X34utz63uXlItFOEEdWYPSo92ptbC39cQIOwGvMS",
                 "rkw1js5t3rr0f7ILH3Y7joFioVXoq3I38UnyP9t4");
+        ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
     }
 }
