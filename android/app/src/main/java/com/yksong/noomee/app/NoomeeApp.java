@@ -3,6 +3,7 @@ package com.yksong.noomee.app;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
+import com.parse.Parse;
 import com.yksong.noomee.BuildConfig;
 
 import io.fabric.sdk.android.Fabric;
@@ -16,5 +17,8 @@ public class NoomeeApp extends Application {
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
+
+        Parse.initialize(this, "X34utz63uXlItFOEEdWYPSo92ptbC39cQIOwGvMS",
+                "rkw1js5t3rr0f7ILH3Y7joFioVXoq3I38UnyP9t4");
     }
 }

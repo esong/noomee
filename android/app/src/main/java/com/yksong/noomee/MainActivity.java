@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 import com.facebook.Session;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
 import com.yksong.noomee.start.StartActivity;
 
 public class MainActivity extends ActionBarActivity
@@ -101,8 +103,9 @@ public class MainActivity extends ActionBarActivity
             case R.id.action_settings: {
                 return true;
             }
-            case R.id.action_sign_out: {
-                Session.getActiveSession().closeAndClearTokenInformation();
+            case R.id.action_log_out: {
+                ParseFacebookUtils.getSession().closeAndClearTokenInformation();
+                ParseUser.logOut();
                 startActivity(new Intent(this, StartActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
