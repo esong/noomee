@@ -1,30 +1,70 @@
 package com.yksong.noomee.start;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.view.View;
 
-import com.yksong.noomee.start.FacebookFragment;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
+
+import com.yksong.noomee.MainActivity;
+import com.yksong.noomee.R;
 
 /**
  * Created by esong on 2014-12-08.
  */
 public class StartActivity extends FragmentActivity {
-    private FacebookFragment mFbFragment;
+    private static final String TAG = "StartActivity";
+
+    private Dialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.start_activity);
 
-        if (savedInstanceState == null) {
-            // Add the fragment on initial activity setup
-            mFbFragment = new FacebookFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(android.R.id.content, mFbFragment)
-                    .commit();
-        } else {
-            // Or set the fragment from restored state info
-            mFbFragment = (FacebookFragment) getSupportFragmentManager()
-                    .findFragmentById(android.R.id.content);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
+            startMainActivity();
         }
+    }
+
+    public void onLoginClick(View button){
+        progressDialog = ProgressDialog.show(this, "", "Logging in...", true);
+
+        ParseFacebookUtils.logIn(this, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException err) {
+                progressDialog.dismiss();
+                if (user == null) {
+                    Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
+                } else if (user.isNew()) {
+                    Log.d(TAG, "User signed up and logged in through Facebook!");
+                    startMainActivity();
+                } else {
+                    Log.d(TAG, "User logged in through Facebook!");
+                    startMainActivity();
+                }
+            }
+        });
+    }
+
+    private void startMainActivity() {
+        startActivity(new Intent(this, MainActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        finish();
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
     }
 }
