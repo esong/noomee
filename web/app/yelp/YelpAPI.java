@@ -66,6 +66,14 @@ public class YelpAPI {
         return sendRequestAndGetResponse(request);
     }
 
+    public String searchForBusinessesByLatLong(String term, Double lati, Double longi) {
+        OAuthRequest request = createOAuthRequest(SEARCH_PATH);
+        request.addQuerystringParameter("term", term);
+        request.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
+        request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
+        return sendRequestAndGetResponse(request);
+    }
+
     /**
      * Creates and sends a request to the Business API by business ID.
      * <p>
