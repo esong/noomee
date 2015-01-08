@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppThemeBase" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Theme color -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- Native component themes -->
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <!-- Actionbar/Toolbar theme-->
+        <item name="actionBarStyle">@style/actionBarStyle</item>
+    </style>
+</resources>
