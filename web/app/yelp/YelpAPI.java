@@ -23,6 +23,7 @@ public class YelpAPI {
 
     private static final String API_HOST = "api.yelp.com";
     private static final int SEARCH_LIMIT = 10;
+    private static final int RADIUS_LIMIT = 1000;  // in meters
     private static final String SEARCH_PATH = "/v2/search";
     private static final String BUSINESS_PATH = "/v2/business";
 
@@ -71,6 +72,7 @@ public class YelpAPI {
         request.addQuerystringParameter("term", term);
         request.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
         request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
+        request.addQuerystringParameter("radius_filter", String.valueOf(RADIUS_LIMIT));
         return sendRequestAndGetResponse(request);
     }
 
