@@ -2,12 +2,13 @@ package com.yksong.noomee.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 /**
  * Created by esong on 2015-01-01.
  */
-public class ActivitiesView extends ListView {
+public class ActivitiesView extends FrameLayout {
     public ActivitiesView(Context context) {
         this(context, null);
     }
