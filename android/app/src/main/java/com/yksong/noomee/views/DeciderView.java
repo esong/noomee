@@ -2,12 +2,12 @@ package com.yksong.noomee.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 /**
  * Created by esong on 2015-01-01.
  */
-public class DeciderView extends RelativeLayout {
+public class DeciderView extends FrameLayout {
     public DeciderView(Context context) {
         this(context, null);
     }
