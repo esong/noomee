@@ -71,7 +71,7 @@ public class YelpAPI {
         OAuthRequest request = createOAuthRequest(SEARCH_PATH);
         request.addQuerystringParameter("term", term);
         request.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
-        request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
+//        request.addQuerystringParameter("limit", String.valueOf(SEARCH_LIMIT));
         request.addQuerystringParameter("radius_filter", String.valueOf(RADIUS_LIMIT));
         return sendRequestAndGetResponse(request);
     }

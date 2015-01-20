@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Noomee</string>
-    <string name="log_in">Logging in...</string>
+    <string name="log_in">Logging in&#8230;</string>
     <string name="main_section">Main</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -13,7 +13,9 @@
     <string name="action_log_out">Log out</string>
     <string name="activity_tab">Activity</string>
     <string name="decide_tab">Decider</string>
-    <string name="decide_tab_prompt">What are you craving for?</string>
+    <string name="decide_cuisines">Cuisines</string>
+    <string name="decide_more_options">More Options</string>
+    <string name="Loading">Loading&#8230;</string>
 
     <!--Testing purpose-->
     <string-array name="list_of_countries">
