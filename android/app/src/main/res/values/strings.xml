@@ -14,4 +14,17 @@
     <string name="activity_tab">Activity</string>
     <string name="decide_tab">Decider</string>
     <string name="decide_tab_prompt">What are you craving for?</string>
+
+    <!--Testing purpose-->
+    <string-array name="list_of_countries">
+        <item >USA</item>
+        <item >Uk</item>
+        <item >Canada</item>
+        <item >Australia</item>
+        <item >France</item>
+        <item >Italy</item>
+        <item >China</item>
+        <item >Japan</item>
+        <item >Spain</item>
+    </string-array>
 </resources>
