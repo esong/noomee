@@ -27,7 +27,7 @@ public class ChiTagView extends LinearLayout {
 
     private int curWidth;
     private LinearLayout curLine;
-    private List<LinearLayout> lines;
+    private List<LinearLayout> lines = new ArrayList<>();
     private boolean mSelectedOnly;
 
     public ChiTagView(Context context) {

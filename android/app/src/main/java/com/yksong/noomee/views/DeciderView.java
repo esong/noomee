@@ -1,6 +1,7 @@
 package com.yksong.noomee.views;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
@@ -20,6 +21,7 @@ public class DeciderView extends FrameLayout {
     private DeciderPresenter mPresenter = new DeciderPresenter();
     private ChiTagView mChiTagView;
     private AlertDialog mDialog;
+    private AlertDialog mLoadingDialog;
 
     public DeciderView(Context context) {
         this(context, null);
@@ -31,6 +33,9 @@ public class DeciderView extends FrameLayout {
 
     public DeciderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        mLoadingDialog = new ProgressDialog(getContext());
+        mLoadingDialog.setMessage(context.getString(R.string.Loading));
     }
 
     @Override
@@ -50,6 +55,7 @@ public class DeciderView extends FrameLayout {
         findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                mLoadingDialog.show();
                 mPresenter.getRestaurant();
             }
         });
@@ -88,6 +94,7 @@ public class DeciderView extends FrameLayout {
     }
 
     public void showRestaurant(Restaurant restaurant) {
+        mLoadingDialog.dismiss();
         new AlertDialog.Builder(getContext())
                 .setMessage(restaurant.name)
                 .setPositiveButton(android.R.string.ok,

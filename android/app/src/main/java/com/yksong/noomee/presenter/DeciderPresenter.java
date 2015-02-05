@@ -1,18 +1,10 @@
 package com.yksong.noomee.presenter;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.location.Location;
-import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import com.yksong.noomee.R;
 import com.yksong.noomee.model.ChiTag;
@@ -21,7 +13,6 @@ import com.yksong.noomee.network.HttpClient;
 import com.yksong.noomee.network.HttpConfig;
 import com.yksong.noomee.network.RequestBuilder;
 import com.yksong.noomee.util.GeoProvider;
-import com.yksong.noomee.util.NoomeeParser;
 import com.yksong.noomee.views.ChiTagView;
 import com.yksong.noomee.views.DeciderView;
 

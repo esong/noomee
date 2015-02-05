@@ -1,6 +1,7 @@
 package com.yksong.noomee.presenter;
 
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
@@ -8,7 +9,6 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-import com.yksong.noomee.model.Restaurant;
 
 import java.io.IOException;
 
@@ -36,8 +36,7 @@ public abstract class AbsPresenter<T extends View> {
             mClass = clazz;
         }
 
-        @Override
-        public void onFailure(Request request,final IOException e) {
+        private void showErrorMessage(final Exception e){
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -45,6 +44,11 @@ public abstract class AbsPresenter<T extends View> {
                             Toast.LENGTH_LONG).show();
                 }
             });
+        }
+
+        @Override
+        public void onFailure(Request request,final IOException e) {
+            showErrorMessage(e);
         }
 
         @Override
@@ -58,10 +62,16 @@ public abstract class AbsPresenter<T extends View> {
             });
         }
 
-        public T parse(final Response response) {
-            return mGson.fromJson(response.body().charStream(), mClass);
+        public @Nullable T parse(final Response response) {
+            T retObj = null;
+            try {
+                retObj = mGson.fromJson(response.body().charStream(), mClass);
+            } catch (Exception e) {
+                showErrorMessage(e);
+            }
+            return retObj;
         }
 
-        public abstract void callback(T parsedObj);
+        public abstract void callback(@Nullable T parsedObj);
     }
 }
