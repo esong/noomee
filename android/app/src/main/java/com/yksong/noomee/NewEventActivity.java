@@ -134,6 +134,20 @@ public class NewEventActivity extends ActionBarActivity {
                 return false;
             }
         });
+
+        findViewById(R.id.buttonPickDate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(v);
+            }
+        });
+
+        findViewById(R.id.buttonPickTime).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showTimePickerDialog(v);
+            }
+        });
     }
 
     private void hideKeyboard(View view) {
