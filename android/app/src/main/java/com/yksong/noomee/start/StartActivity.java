@@ -16,11 +16,14 @@ import com.parse.ParseUser;
 import com.yksong.noomee.MainActivity;
 import com.yksong.noomee.R;
 
+import java.util.Arrays;
+
 /**
  * Created by esong on 2014-12-08.
  */
 public class StartActivity extends FragmentActivity {
     private static final String TAG = "StartActivity";
+    private static final String[] FB_PERMISSION = new String [] {"user_friends"};
 
     private Dialog progressDialog;
 
@@ -38,7 +41,7 @@ public class StartActivity extends FragmentActivity {
     public void onLoginClick(View button){
         progressDialog = ProgressDialog.show(this, "", "Logging in...", true);
 
-        ParseFacebookUtils.logIn(this, new LogInCallback() {
+        ParseFacebookUtils.logIn(Arrays.asList(FB_PERMISSION), this, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException err) {
                 progressDialog.dismiss();
