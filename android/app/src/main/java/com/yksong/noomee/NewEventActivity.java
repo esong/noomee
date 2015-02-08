@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.widget.DrawerLayout;
@@ -26,10 +27,13 @@ import android.widget.TimePicker;
 
 import com.facebook.Session;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.yksong.noomee.start.StartActivity;
+import com.yksong.noomee.util.ParseAPI;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Ed on 16/01/2015.
@@ -63,7 +67,7 @@ public class NewEventActivity extends ActionBarActivity {
         eventTimeHour = now.hour;
         eventTimeMinute = now.minute;
         eventDateYear = now.year;
-        eventDateMonth = now.month+1;
+        eventDateMonth = now.month;
         eventDateDay = now.monthDay;
 
         //use current time and current date as default time information
@@ -213,7 +217,19 @@ public class NewEventActivity extends ActionBarActivity {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle("Posting")
                         .setMessage("Post nm")
-                        .setPositiveButton("Yes", null)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ParseAPI.createEvent(
+                                        ParseUser.getCurrentUser(),
+                                        eventDateYear,
+                                        eventDateMonth,
+                                        eventDateDay,
+                                        eventTimeHour,
+                                        eventTimeMinute
+                                );
+                            }
+                        })
                         .setNegativeButton("No", null)
                         .show();
                 return true;
