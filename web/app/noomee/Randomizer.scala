@@ -18,6 +18,10 @@ class Randomizer {
     val res = biz.filter(value => tags.isEmpty ||
       (value \ "categories").as[Seq[JsArray]].map(i => tags.contains(i.value.seq(1).as[String])).contains(true))
 
-    res(randomGenerator.nextInt(res.size))
+    if (res.size == 0) {
+      biz(randomGenerator.nextInt(biz.size))
+    } else {
+      res(randomGenerator.nextInt(res.size))
+    }
   }
 }

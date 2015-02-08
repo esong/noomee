@@ -1,0 +1,649 @@
+{
+  "region" : {
+    "span" : {
+      "latitude_delta" : 0.0033079207131265775,
+      "longitude_delta" : 0.012271639101584242
+    },
+    "center" : {
+      "latitude" : 43.473343700324151,
+      "longitude" : -80.533673017773452
+    }
+  },
+  "total" : 49,
+  "businesses" : [ {
+    "is_claimed" : false,
+    "distance" : 194.58177506080784,
+    "mobile_url" : "http://m.yelp.ca/biz/grace-and-healthy-premium-dumplings-waterloo",
+    "rating_img_url" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/99493c12711e/ico/stars/v1/stars_4_half.png",
+    "review_count" : 16,
+    "name" : "Grace and Healthy Premium Dumplings",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/6iqsUu-zz2SJ7ZftuahroA/ms.jpg",
+    "rating" : 4.5,
+    "url" : "http://www.yelp.ca/biz/grace-and-healthy-premium-dumplings-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "150 University Avenue W", "Waterloo, ON N2L 6J3", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 6J3",
+      "country_code" : "CA",
+      "address" : [ "150 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472583819735597,
+        "longitude" : -80.536159090697794
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5192080061",
+    "snippet_text" : "This is probably my favorite place in the plaza. The dumplings are reasonably priced and taste really good. They aren't overly flavored and you can taste...",
+    "image_url" : "http://s3-media1.fl.yelpcdn.com/bphoto/yFM_ozUGkg_6sumi-aSExQ/ms.jpg",
+    "categories" : [ [ "Breakfast & Brunch", "breakfast_brunch" ], [ "Chinese", "chinese" ] ],
+    "display_phone" : "+1-519-208-0061",
+    "rating_img_url_large" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/9f83790ff7f6/ico/stars/v1/stars_large_4_half.png",
+    "id" : "grace-and-healthy-premium-dumplings-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/a5221e66bc70/ico/stars/v1/stars_small_4_half.png"
+  }, {
+    "is_claimed" : true,
+    "distance" : 297.29911627034346,
+    "mobile_url" : "http://m.yelp.ca/biz/auntys-kitchen-waterloo",
+    "rating_img_url" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png",
+    "review_count" : 12,
+    "name" : "Aunty's Kitchen",
+    "snippet_image_url" : "http://s3-media3.fl.yelpcdn.com/photo/_31Cy9yY87ZMAPH7OapAvg/ms.jpg",
+    "rating" : 4.0,
+    "url" : "http://www.yelp.ca/biz/auntys-kitchen-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "160 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "160 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472175106396101,
+        "longitude" : -80.537306133868398
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5199545633",
+    "snippet_text" : "Haven't been here for a little while but went for supper tonight.  Aunty's is as good as ever.  They have just finished expanding the seating and kitchen...",
+    "image_url" : "http://s3-media3.fl.yelpcdn.com/bphoto/Ane5KXAyyPSDQFvfpc1A_A/ms.jpg",
+    "categories" : [ [ "Indian", "indpak" ], [ "Pakistani", "pakistani" ], [ "Halal", "halal" ] ],
+    "display_phone" : "+1-519-954-5633",
+    "rating_img_url_large" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/ccf2b76faa2c/ico/stars/v1/stars_large_4.png",
+    "id" : "auntys-kitchen-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/f62a5be2f902/ico/stars/v1/stars_small_4.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 243.20149056166201,
+    "mobile_url" : "http://m.yelp.ca/biz/taste-of-taiwan-home-garden-waterloo",
+    "rating_img_url" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png",
+    "review_count" : 10,
+    "name" : "Taste of Taiwan Home Garden",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/eeCUrMuzNkasc5bPrxGo0A/ms.jpg",
+    "rating" : 4.0,
+    "url" : "http://www.yelp.ca/biz/taste-of-taiwan-home-garden-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "160 Av University O", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 8.0,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "160 Av University O" ],
+      "coordinate" : {
+        "latitude" : 43.471805600000003,
+        "longitude" : -80.537185699999995
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5198863999",
+    "snippet_text" : "It's been almost 5 years since I've first come here and I have never been disappointed. I usually come for the fried rice (salmon is my favourite), but they...",
+    "image_url" : "http://s3-media3.fl.yelpcdn.com/bphoto/j-NbAb8tzNtzcQimtOqL5g/ms.jpg",
+    "categories" : [ [ "Taiwanese", "taiwanese" ] ],
+    "display_phone" : "+1-519-886-3999",
+    "rating_img_url_large" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/ccf2b76faa2c/ico/stars/v1/stars_large_4.png",
+    "id" : "taste-of-taiwan-home-garden-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/f62a5be2f902/ico/stars/v1/stars_small_4.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 329.56018223500047,
+    "mobile_url" : "http://m.yelp.ca/biz/grab-a-greek-waterloo",
+    "rating_img_url" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png",
+    "review_count" : 10,
+    "name" : "Grab A Greek",
+    "snippet_image_url" : "http://s3-media3.fl.yelpcdn.com/photo/_kYAQAHRkFc-3WnSAF4SEg/ms.jpg",
+    "rating" : 4.0,
+    "url" : "http://www.yelp.ca/biz/grab-a-greek-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "170 University Avenue W", "Unit 31", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "170 University Avenue W", "Unit 31" ],
+      "coordinate" : {
+        "latitude" : 43.472718857253497,
+        "longitude" : -80.537926331162495
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5198865000",
+    "snippet_text" : "Really good greek food. \n\nThe meat themselves are not the star of the dishes, but the side dishes are really fantastic. The rice has seasoned potato juice...",
+    "image_url" : "http://s3-media4.fl.yelpcdn.com/bphoto/sc1A8c8Kpg9H01MpWU83OA/ms.jpg",
+    "categories" : [ [ "Greek", "greek" ], [ "Fast Food", "hotdogs" ] ],
+    "display_phone" : "+1-519-886-5000",
+    "rating_img_url_large" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/ccf2b76faa2c/ico/stars/v1/stars_large_4.png",
+    "id" : "grab-a-greek-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/f62a5be2f902/ico/stars/v1/stars_small_4.png"
+  }, {
+    "is_claimed" : true,
+    "distance" : 34.533945030059392,
+    "mobile_url" : "http://m.yelp.ca/biz/mels-diner-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png",
+    "review_count" : 40,
+    "name" : "Mel's Diner",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/pxOsNZY_j4TOcOmN_W7DBQ/ms.jpg",
+    "rating" : 3.0,
+    "url" : "http://www.yelp.ca/biz/mels-diner-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "140 University Avenue W", "Waterloo, ON N2L 6J3", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 6J3",
+      "country_code" : "CA",
+      "address" : [ "140 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472901,
+        "longitude" : -80.534080000000003
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5195796357",
+    "snippet_text" : "Mel's became a staple of my undergraduate career after it re-opened a couple of years ago. For a long time in my life, it was missing, mostly because it had...",
+    "image_url" : "http://s3-media1.fl.yelpcdn.com/bphoto/vXk9TdhybVXH3vXZmQafjw/ms.jpg",
+    "categories" : [ [ "Diners", "diners" ], [ "Breakfast & Brunch", "breakfast_brunch" ], [ "Burgers", "burgers" ] ],
+    "display_phone" : "+1-519-579-6357",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/e8b5b79d37ed/ico/stars/v1/stars_large_3.png",
+    "id" : "mels-diner-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/902abeed0983/ico/stars/v1/stars_small_3.png"
+  }, {
+    "is_claimed" : true,
+    "distance" : 180.81736746588496,
+    "mobile_url" : "http://m.yelp.ca/biz/meet-point-restaurant-waterloo",
+    "rating_img_url" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png",
+    "review_count" : 11,
+    "name" : "Meet Point Restaurant",
+    "snippet_image_url" : "http://s3-media2.fl.yelpcdn.com/photo/cBjiEC_Ju0CsYjPgzVgYhg/ms.jpg",
+    "rating" : 3.5,
+    "url" : "http://www.yelp.ca/biz/meet-point-restaurant-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "150 University Avenue W", "Suite 3", "Waterloo, ON N2L 3E4", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E4",
+      "country_code" : "CA",
+      "address" : [ "150 University Avenue W", "Suite 3" ],
+      "coordinate" : {
+        "latitude" : 43.472441725877502,
+        "longitude" : -80.535888522863402
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5197720146",
+    "snippet_text" : "I'm definitely a fan of  the food. We've visited on a Saturday night, had the Cigarette Burek, it was really good appetiser. \nMixed Grill Plate was amazing,...",
+    "image_url" : "http://s3-media1.fl.yelpcdn.com/bphoto/vvBNAztQMumwPwl1cWzzSQ/ms.jpg",
+    "categories" : [ [ "Turkish", "turkish" ], [ "Mediterranean", "mediterranean" ] ],
+    "display_phone" : "+1-519-772-0146",
+    "rating_img_url_large" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/bd9b7a815d1b/ico/stars/v1/stars_large_3_half.png",
+    "id" : "meet-point-restaurant-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/2e909d5d3536/ico/stars/v1/stars_small_3_half.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 269.04902055107249,
+    "mobile_url" : "http://m.yelp.ca/biz/waterloo-sogo-restaurant-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png",
+    "review_count" : 13,
+    "name" : "Waterloo Sogo Restaurant",
+    "snippet_image_url" : "http://s3-media4.fl.yelpcdn.com/photo/MUEgISnUsYZ2YXZRZabYxw/ms.jpg",
+    "rating" : 3.0,
+    "url" : "http://www.yelp.ca/biz/waterloo-sogo-restaurant-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "170 University Avenue W", "Unit 37", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "170 University Avenue W", "Unit 37" ],
+      "coordinate" : {
+        "latitude" : 43.4748473006483,
+        "longitude" : -80.536308288574205
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5192082188",
+    "snippet_text" : "I have been here an uncountable number of times. Their cumin lamb on rice and rice noodles with lamb are both amazing.\n\nOften crowded during peak hours and...",
+    "image_url" : "http://s3-media2.fl.yelpcdn.com/bphoto/7hew8ICUAK-nzLdXcTRjbw/ms.jpg",
+    "categories" : [ [ "Chinese", "chinese" ] ],
+    "display_phone" : "+1-519-208-2188",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/e8b5b79d37ed/ico/stars/v1/stars_large_3.png",
+    "id" : "waterloo-sogo-restaurant-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/902abeed0983/ico/stars/v1/stars_small_3.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 491.64778488840994,
+    "mobile_url" : "http://m.yelp.ca/biz/veritas-caf%C3%A9-waterloo",
+    "rating_img_url" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/99493c12711e/ico/stars/v1/stars_4_half.png",
+    "review_count" : 3,
+    "name" : "Veritas Café",
+    "snippet_image_url" : "http://s3-media2.fl.yelpcdn.com/photo/JiV5cYAFPc8kpGu1CowVeQ/ms.jpg",
+    "rating" : 4.5,
+    "url" : "http://www.yelp.ca/biz/veritas-caf%C3%A9-waterloo",
+    "snippet_text" : "My favorite place to eat on campus! \n\nThey offer an assortment of fresh paninis, wraps and salads. Definitely fresher than any other place at laurier, they...",
+    "image_url" : "http://s3-media4.fl.yelpcdn.com/bphoto/a_LbtNDQyB-P1dRCOmNRKQ/ms.jpg",
+    "categories" : [ [ "Cafes", "cafes" ] ],
+    "rating_img_url_small" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/a5221e66bc70/ico/stars/v1/stars_small_4_half.png",
+    "rating_img_url_large" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/9f83790ff7f6/ico/stars/v1/stars_large_4_half.png",
+    "id" : "veritas-café-waterloo",
+    "is_closed" : false,
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "WLU Graduate Student Association Building", "75 University Avenue W", "Waterloo, ON N2L", "Canada" ],
+      "geo_accuracy" : 8.0,
+      "postal_code" : "N2L",
+      "country_code" : "CA",
+      "address" : [ "WLU Graduate Student Association Building", "75 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.474159200000003,
+        "longitude" : -80.530136100000007
+      },
+      "state_code" : "ON"
+    }
+  }, {
+    "is_claimed" : false,
+    "distance" : 121.37400948979135,
+    "mobile_url" : "http://m.yelp.ca/biz/kenzo-japanese-noodles-house-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png",
+    "review_count" : 16,
+    "name" : "Kenzo Japanese Noodles House",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/bASq9x1DzuUNp2tg50gENQ/ms.jpg",
+    "rating" : 3.0,
+    "url" : "http://www.yelp.ca/biz/kenzo-japanese-noodles-house-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "140 University Avenue W", "Waterloo, ON N2L 3W6", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3W6",
+      "country_code" : "CA",
+      "address" : [ "140 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472979442313502,
+        "longitude" : -80.535370521247401
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5199541001",
+    "snippet_text" : "I went a second time today, again during the off-rush time in midafternoon.  Surprisingly good.  I'd say the bowl of ramen I had today was better than what...",
+    "image_url" : "http://s3-media1.fl.yelpcdn.com/bphoto/UIujQOFOo3PfsnxfJkCkwA/ms.jpg",
+    "categories" : [ [ "Japanese", "japanese" ] ],
+    "display_phone" : "+1-519-954-1001",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/e8b5b79d37ed/ico/stars/v1/stars_large_3.png",
+    "id" : "kenzo-japanese-noodles-house-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/902abeed0983/ico/stars/v1/stars_small_3.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 429.24792853911117,
+    "mobile_url" : "http://m.yelp.ca/biz/nuri-village-waterloo",
+    "rating_img_url" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png",
+    "review_count" : 7,
+    "name" : "Nuri Village",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/rvU05XfeBUYp4-QbzwytDQ/ms.jpg",
+    "rating" : 4.0,
+    "url" : "http://www.yelp.ca/biz/nuri-village-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "170 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "170 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.471840100000001,
+        "longitude" : -80.538880700000007
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5192085678",
+    "snippet_text" : "Nuri Village is my go-to lunch restaurant when I am on campus. I've been eating here every Tuesday and Thursday for the past 2 months. Why? Because it's so...",
+    "image_url" : "http://s3-media4.fl.yelpcdn.com/bphoto/Jg8GcR8ZRX1zwohi-184Wg/ms.jpg",
+    "categories" : [ [ "Korean", "korean" ] ],
+    "display_phone" : "+1-519-208-5678",
+    "rating_img_url_large" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/ccf2b76faa2c/ico/stars/v1/stars_large_4.png",
+    "id" : "nuri-village-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/f62a5be2f902/ico/stars/v1/stars_small_4.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 202.16958938859756,
+    "mobile_url" : "http://m.yelp.ca/biz/waterloo-star-waterloo",
+    "rating_img_url" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png",
+    "review_count" : 13,
+    "name" : "Waterloo Star",
+    "snippet_image_url" : "http://s3-media3.fl.yelpcdn.com/photo/3y7egVunykXaYTZFXnPiHQ/ms.jpg",
+    "rating" : 4.0,
+    "url" : "http://www.yelp.ca/biz/waterloo-star-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "170 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 8.0,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "170 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.471404999999997,
+        "longitude" : -80.537734999999998
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5197475588",
+    "snippet_text" : "I absolutely loved my experience here. The atnosphere was great, even though it was really busy, there was no language barrier which was great because i...",
+    "image_url" : "http://s3-media1.fl.yelpcdn.com/bphoto/tb_TkS4GKTxJk6KcbbqX8Q/ms.jpg",
+    "categories" : [ [ "Chinese", "chinese" ] ],
+    "display_phone" : "+1-519-747-5588",
+    "rating_img_url_large" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/ccf2b76faa2c/ico/stars/v1/stars_large_4.png",
+    "id" : "waterloo-star-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/f62a5be2f902/ico/stars/v1/stars_small_4.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 250.67614978111098,
+    "mobile_url" : "http://m.yelp.ca/biz/china-legend-waterloo",
+    "rating_img_url" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/5ef3eb3cb162/ico/stars/v1/stars_3_half.png",
+    "review_count" : 4,
+    "name" : "China Legend",
+    "snippet_image_url" : "http://s3-media3.fl.yelpcdn.com/photo/uYtO5YEzsMRlIaNtvu4lVA/ms.jpg",
+    "rating" : 3.5,
+    "url" : "http://www.yelp.ca/biz/china-legend-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "160 Avenue University", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "160 Avenue University" ],
+      "coordinate" : {
+        "latitude" : 43.472090999999999,
+        "longitude" : -80.536612000000005
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5193420232",
+    "snippet_text" : "I came here with my boyfriend who had been here a few times when he went to Waterloo University so he knew exactly what to order, which was really nice and...",
+    "image_url" : "http://s3-media4.fl.yelpcdn.com/bphoto/l1txHkW8Gwm5maMhaHENlQ/ms.jpg",
+    "categories" : [ [ "Chinese", "chinese" ] ],
+    "display_phone" : "+1-519-342-0232",
+    "rating_img_url_large" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/bd9b7a815d1b/ico/stars/v1/stars_large_3_half.png",
+    "id" : "china-legend-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/2e909d5d3536/ico/stars/v1/stars_small_3_half.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 294.62941888172895,
+    "mobile_url" : "http://m.yelp.ca/biz/vegetarian-fastfood-restaurant-waterloo",
+    "rating_img_url" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c2f3dd9799a5/ico/stars/v1/stars_4.png",
+    "review_count" : 14,
+    "name" : "Vegetarian Fastfood Restaurant",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/J1RAmMNOKPOakXwxij_Pug/ms.jpg",
+    "rating" : 4.0,
+    "url" : "http://www.yelp.ca/biz/vegetarian-fastfood-restaurant-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "160 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "160 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.471890999999999,
+        "longitude" : -80.537081999999998
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5197460057",
+    "snippet_text" : "Yummm. I'm really regretting not trying this place earlier in my university career. I guess the name and storefront just don't look that appealing. After...",
+    "image_url" : "http://s3-media4.fl.yelpcdn.com/bphoto/2kkkJ3VJRtE1d_luaB8vaQ/ms.jpg",
+    "categories" : [ [ "Vegetarian", "vegetarian" ], [ "Fast Food", "hotdogs" ] ],
+    "display_phone" : "+1-519-746-0057",
+    "rating_img_url_large" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/ccf2b76faa2c/ico/stars/v1/stars_large_4.png",
+    "id" : "vegetarian-fastfood-restaurant-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/f62a5be2f902/ico/stars/v1/stars_small_4.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 325.38366338574104,
+    "mobile_url" : "http://m.yelp.ca/biz/mikeys-eatery-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png",
+    "review_count" : 16,
+    "name" : "Mikey's Eatery",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/77M1lsKEBeiv3EfyqE6kZw/ms.jpg",
+    "rating" : 3.0,
+    "url" : "http://www.yelp.ca/biz/mikeys-eatery-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "160 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "160 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472328099212902,
+        "longitude" : -80.537749640643597
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5198853022",
+    "snippet_text" : "best sesame chicken!! I haven't had any \ncurry noodles are delicious, so are the regular noodles (with the red sauce on top!)\n\nprices are a bit pricey so i...",
+    "image_url" : "http://s3-media3.fl.yelpcdn.com/bphoto/y7C_US9jrxCWj8gpfhNQtw/ms.jpg",
+    "categories" : [ [ "Canadian (New)", "newcanadian" ], [ "Chinese", "chinese" ], [ "Fast Food", "hotdogs" ] ],
+    "display_phone" : "+1-519-885-3022",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/e8b5b79d37ed/ico/stars/v1/stars_large_3.png",
+    "id" : "mikeys-eatery-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/902abeed0983/ico/stars/v1/stars_small_3.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 282.42146864579792,
+    "mobile_url" : "http://m.yelp.ca/biz/green-sushi-waterloo",
+    "rating_img_url" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/b561c24f8341/ico/stars/v1/stars_2.png",
+    "review_count" : 11,
+    "name" : "Green Sushi",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/6iqsUu-zz2SJ7ZftuahroA/ms.jpg",
+    "rating" : 2.0,
+    "url" : "http://www.yelp.ca/biz/green-sushi-waterloo",
+    "snippet_text" : "This is a combination of Chinese steam table with ayce sushi, and you get access to both. Some dishes are exactly what you'd expect from an ayce sushi, and...",
+    "image_url" : "http://s3-media3.fl.yelpcdn.com/bphoto/ovuTYet8yM1XjU1joVb9dA/ms.jpg",
+    "categories" : [ [ "Sushi Bars", "sushi" ] ],
+    "rating_img_url_small" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/a6210baec261/ico/stars/v1/stars_small_2.png",
+    "rating_img_url_large" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c00926ee5dcb/ico/stars/v1/stars_large_2.png",
+    "id" : "green-sushi-waterloo",
+    "is_closed" : false,
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "Waterloo, ON", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "country_code" : "CA",
+      "address" : [ ],
+      "coordinate" : {
+        "latitude" : 43.472531507823298,
+        "longitude" : -80.537275895476299
+      },
+      "state_code" : "ON"
+    }
+  }, {
+    "is_claimed" : true,
+    "distance" : 446.71699685912569,
+    "mobile_url" : "http://m.yelp.ca/biz/mongolian-grill-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png",
+    "review_count" : 10,
+    "name" : "Mongolian Grill",
+    "snippet_image_url" : "http://s3-media4.fl.yelpcdn.com/photo/MUEgISnUsYZ2YXZRZabYxw/ms.jpg",
+    "rating" : 3.0,
+    "url" : "http://www.yelp.ca/biz/mongolian-grill-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "170 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "170 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472172602103797,
+        "longitude" : -80.539251035546897
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5197474400",
+    "snippet_text" : "This place is a popular place for birthdays, families, and groups. They have a lot of seating and it is quite roomy. They have outdoor seating too, usually...",
+    "image_url" : "http://s3-media3.fl.yelpcdn.com/bphoto/KYo8RLRkKEUVU-DU60Wk1Q/ms.jpg",
+    "categories" : [ [ "Mongolian", "mongolian" ], [ "Buffets", "buffets" ] ],
+    "display_phone" : "+1-519-747-4400",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/e8b5b79d37ed/ico/stars/v1/stars_large_3.png",
+    "id" : "mongolian-grill-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/902abeed0983/ico/stars/v1/stars_small_3.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 248.16198116108617,
+    "mobile_url" : "http://m.yelp.ca/biz/bubble-tease-resto-bar-cafe-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png",
+    "review_count" : 8,
+    "name" : "Bubble Tease Resto Bar Cafe",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/BQgIWoS06DbOPTi_HW8RUg/ms.jpg",
+    "rating" : 3.0,
+    "url" : "http://www.yelp.ca/biz/bubble-tease-resto-bar-cafe-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "160 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 8.0,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "160 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.471805600000003,
+        "longitude" : -80.537185699999995
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5197461238",
+    "snippet_text" : "I don't get why so many people here say it's a bad place. Personally I think this is one of the best Chinese sit down restaurant walking distance from U...",
+    "image_url" : "http://s3-media1.fl.yelpcdn.com/bphoto/Gwzjm_gjS4uE8j-e_qo2RA/ms.jpg",
+    "categories" : [ [ "Chinese", "chinese" ], [ "Bars", "bars" ], [ "Tea Rooms", "tea" ] ],
+    "display_phone" : "+1-519-746-1238",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/e8b5b79d37ed/ico/stars/v1/stars_large_3.png",
+    "id" : "bubble-tease-resto-bar-cafe-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/902abeed0983/ico/stars/v1/stars_small_3.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 28.326687084370747,
+    "mobile_url" : "http://m.yelp.ca/biz/mr-sushi-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/11e62fee886f/ico/stars/v1/stars_1_half.png",
+    "review_count" : 10,
+    "name" : "Mr. Sushi",
+    "snippet_image_url" : "http://s3-media1.fl.yelpcdn.com/photo/u18oIXOcg2iFV3kOlkgEKw/ms.jpg",
+    "rating" : 1.5,
+    "url" : "http://www.yelp.ca/biz/mr-sushi-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "140 University Avenue W", "Waterloo, ON N2L 3W6", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3W6",
+      "country_code" : "CA",
+      "address" : [ "140 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472948000000002,
+        "longitude" : -80.534036999999998
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "2266475525",
+    "snippet_text" : "I've never tried the Korean food here, so I can't say about that. Regarding to the sushi itself, it's pretty good. The price is a bit high, but it's worth...",
+    "image_url" : "http://s3-media3.fl.yelpcdn.com/bphoto/XExTH25XjsjmASfOx0J5MA/ms.jpg",
+    "categories" : [ [ "Sushi Bars", "sushi" ], [ "Japanese", "japanese" ] ],
+    "display_phone" : "+1-226-647-5525",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/4b88f27b8b84/ico/stars/v1/stars_large_1_half.png",
+    "id" : "mr-sushi-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/edfabe6dfcec/ico/stars/v1/stars_small_1_half.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 392.69130953364453,
+    "mobile_url" : "http://m.yelp.ca/biz/seoul-soul-waterloo",
+    "rating_img_url" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/c7fb9aff59f9/ico/stars/v1/stars_2_half.png",
+    "review_count" : 9,
+    "name" : "Seoul Soul",
+    "snippet_image_url" : "http://s3-media3.fl.yelpcdn.com/photo/oUfnznspMliXlZ-xe9KhNw/ms.jpg",
+    "rating" : 2.5,
+    "url" : "http://www.yelp.ca/biz/seoul-soul-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "170 University Avenue W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "170 University Avenue W" ],
+      "coordinate" : {
+        "latitude" : 43.472371000000003,
+        "longitude" : -80.538629
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5198846053",
+    "snippet_text" : "I have tried the bulgogi, bibimbap and pork bone soup on separate occasions.\n\nI will go back for the pork bone soup, but nothing else. The bulgogi was OK,...",
+    "image_url" : "http://s3-media4.fl.yelpcdn.com/bphoto/dxEEKD8LLwTEr-YUDm97ag/ms.jpg",
+    "categories" : [ [ "Korean", "korean" ] ],
+    "display_phone" : "+1-519-884-6053",
+    "rating_img_url_large" : "http://s3-media2.fl.yelpcdn.com/assets/2/www/img/d63e3add9901/ico/stars/v1/stars_large_2_half.png",
+    "id" : "seoul-soul-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media4.fl.yelpcdn.com/assets/2/www/img/8e8633e5f8f0/ico/stars/v1/stars_small_2_half.png"
+  }, {
+    "is_claimed" : false,
+    "distance" : 249.19373645805959,
+    "mobile_url" : "http://m.yelp.ca/biz/kismet-restaurant-waterloo",
+    "rating_img_url" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/34bc8086841c/ico/stars/v1/stars_3.png",
+    "review_count" : 11,
+    "name" : "Kismet Restaurant",
+    "snippet_image_url" : "http://s3-media3.fl.yelpcdn.com/photo/_kYAQAHRkFc-3WnSAF4SEg/ms.jpg",
+    "rating" : 3.0,
+    "url" : "http://www.yelp.ca/biz/kismet-restaurant-waterloo",
+    "location" : {
+      "city" : "Waterloo",
+      "display_address" : [ "160 University Aveune W", "Waterloo, ON N2L 3E9", "Canada" ],
+      "geo_accuracy" : 9.5,
+      "postal_code" : "N2L 3E9",
+      "country_code" : "CA",
+      "address" : [ "160 University Aveune W" ],
+      "coordinate" : {
+        "latitude" : 43.472090999999999,
+        "longitude" : -80.536591000000001
+      },
+      "state_code" : "ON"
+    },
+    "phone" : "5197468788",
+    "snippet_text" : "The store front is unassuming, walked past it for years before going in.\n\nHowever, the food is the real deal. Really delicious curries and amazing naan. The...",
+    "image_url" : "http://s3-media4.fl.yelpcdn.com/bphoto/2MaVJ9JbukHj-Ws-aGGHPA/ms.jpg",
+    "categories" : [ [ "Indian", "indpak" ] ],
+    "display_phone" : "+1-519-746-8788",
+    "rating_img_url_large" : "http://s3-media1.fl.yelpcdn.com/assets/2/www/img/e8b5b79d37ed/ico/stars/v1/stars_large_3.png",
+    "id" : "kismet-restaurant-waterloo",
+    "is_closed" : false,
+    "rating_img_url_small" : "http://s3-media3.fl.yelpcdn.com/assets/2/www/img/902abeed0983/ico/stars/v1/stars_small_3.png"
+  } ]
+}

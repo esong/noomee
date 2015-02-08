@@ -3,11 +3,13 @@ apply plugin: 'io.fabric'
 
 buildscript {
     repositories {
+        mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath "com.github.jcandksolutions.gradle:android-unit-test:2.1.1"
     }
 }
 
@@ -28,9 +30,13 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE.txt'
     }
 }
 
@@ -48,5 +54,14 @@ dependencies {
 
     compile 'com.melnykov:floatingactionbutton:1.1.0'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
+    compile 'com.squareup:seismic:1.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'com.google.code.gson:gson:2.3.1'
+
+    // Espresso
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+
+    androidTestCompile 'org.mockito:mockito-core:1.10+'
+    androidTestCompile 'commons-io:commons-io:2.4'
 }

@@ -1,7 +1,7 @@
 package controllers
 
 import noomee.Randomizer
-import play.api.libs.json.{JsArray, Json}
+import play.api.libs.json.{JsValue, JsObject, JsArray, Json}
 import play.api.mvc.{Action, Controller}
 import yelp.YelpAPI
 
@@ -37,7 +37,9 @@ object RestaurantController extends Controller {
         "name" -> t._1(0),
         "query" -> t._1(1),
         "count" -> Json.toJson(t._2.length)
-      )))
+      ))).toList.sortWith((jsValue1, jsValue2) => (jsValue1 \ "name").toString() < (jsValue2 \ "name").toString())
+
+    print(categoryMap)
 
     Ok(Json.toJson(categoryMap))
   }

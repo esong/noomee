@@ -17,6 +17,8 @@
     <string name="decide_more_options">More Options</string>
     <string name="Loading">Loading&#8230;</string>
 
+    <string name="restaurant_icon">Restaurant Icon</string>
+
     <!--Testing purpose-->
     <string-array name="list_of_countries">
         <item >USA</item>

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import com.yksong.noomee.network.HttpCallBack;
 
 import java.io.IOException;
 
@@ -18,7 +19,6 @@ import java.io.IOException;
 public abstract class AbsPresenter<T extends View> {
     private static final String sError =  "Network Connection Error: ";
     private T mView;
-    private Gson mGson = new Gson();
 
     public void setView(T view) {
         mView = view;
@@ -28,16 +28,13 @@ public abstract class AbsPresenter<T extends View> {
         return mView;
     }
 
-    public abstract class HttpCallBack<T> implements Callback{
-        private final Handler mHandler = AbsPresenter.this.getView().getHandler();
-        private Class<T> mClass;
-
-        public HttpCallBack(Class<T> clazz) {
-            mClass = clazz;
+    public abstract class PresenterCallBack<T> extends HttpCallBack<T> {
+        public PresenterCallBack(Class<T> clazz) {
+            super(clazz);
         }
 
-        private void showErrorMessage(final Exception e){
-            mHandler.post(new Runnable() {
+        public void showErrorMessage(final Exception e){
+            mView.getHandler().post(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(getView().getContext(), sError + e.getMessage(),
@@ -46,32 +43,15 @@ public abstract class AbsPresenter<T extends View> {
             });
         }
 
-        @Override
-        public void onFailure(Request request,final IOException e) {
-            showErrorMessage(e);
-        }
-
-        @Override
-        public void onResponse(final Response response) throws IOException {
-            final T parsedObj = parse(response);
-            mHandler.post(new Runnable() {
+        public void callback(final T parseObj) {
+            mView.getHandler().post(new Runnable() {
                 @Override
                 public void run() {
-                    callback(parsedObj);
+                    UiCallBack(parseObj);
                 }
             });
         }
 
-        public @Nullable T parse(final Response response) {
-            T retObj = null;
-            try {
-                retObj = mGson.fromJson(response.body().charStream(), mClass);
-            } catch (Exception e) {
-                showErrorMessage(e);
-            }
-            return retObj;
-        }
-
-        public abstract void callback(@Nullable T parsedObj);
+        public abstract void UiCallBack(T parsedObj);
     }
 }

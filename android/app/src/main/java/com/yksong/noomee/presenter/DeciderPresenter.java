@@ -9,6 +9,7 @@ import com.squareup.okhttp.Request;
 import com.yksong.noomee.R;
 import com.yksong.noomee.model.ChiTag;
 import com.yksong.noomee.model.Restaurant;
+import com.yksong.noomee.network.HttpCallBack;
 import com.yksong.noomee.network.HttpClient;
 import com.yksong.noomee.network.HttpConfig;
 import com.yksong.noomee.network.RequestBuilder;
@@ -25,8 +26,6 @@ public class DeciderPresenter extends AbsPresenter<DeciderView> {
     final HttpClient mClient = HttpClient.getInstance();
     final GeoProvider mGeoProvider = GeoProvider.getInstance();
 
-    Location mLastLocation;
-
     public void getRestaurant() {
         final DeciderView view = getView();
 
@@ -37,9 +36,9 @@ public class DeciderPresenter extends AbsPresenter<DeciderView> {
                 .addParam(view.getSelectedTags())
                 .build();
 
-        mClient.asyncCall(request, new HttpCallBack<Restaurant>(Restaurant.class) {
+        mClient.asyncCall(request, new PresenterCallBack<Restaurant>(Restaurant.class) {
             @Override
-            public void callback(Restaurant restaurant) {
+            public void UiCallBack(Restaurant restaurant) {
                 view.showRestaurant(restaurant);
             }
         });
@@ -55,9 +54,9 @@ public class DeciderPresenter extends AbsPresenter<DeciderView> {
                 .addParam(mGeoProvider.getLocation())
                 .build();
 
-        mClient.asyncCall(request, new HttpCallBack<ChiTag[]>(ChiTag[].class) {
+        mClient.asyncCall(request, new PresenterCallBack<ChiTag[]>(ChiTag[].class) {
             @Override
-            public void callback(ChiTag[] parsedObj) {
+            public void UiCallBack(ChiTag[] parsedObj) {
                 Dialog dialog = view.getDialog();
                 dialog.findViewById(R.id.loading).setVisibility(View.GONE);
                 ChiTagView tagView = (ChiTagView)

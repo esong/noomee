@@ -2,6 +2,7 @@ package com.yksong.noomee.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class ChiTagView extends LinearLayout {
 
     private int curWidth;
     private LinearLayout curLine;
-    private List<LinearLayout> lines = new ArrayList<>();
+    private List<LinearLayout> lines;
     private boolean mSelectedOnly;
 
     public ChiTagView(Context context) {
@@ -111,7 +112,11 @@ public class ChiTagView extends LinearLayout {
         curWidth = 0;
     }
 
-    public ChiTag[] getSelectedTags() {
+    public @NonNull ChiTag[] getSelectedTags() {
+        if (lines == null) {
+            return new ChiTag[0];
+        }
+
         List<ChiTag> selectedTags = new ArrayList<>();
         for (LinearLayout line : lines) {
             for(int i = 0; i < line.getChildCount(); ++i) {

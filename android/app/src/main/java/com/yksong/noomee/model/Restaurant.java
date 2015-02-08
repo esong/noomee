@@ -6,5 +6,6 @@ package com.yksong.noomee.model;
 public class Restaurant {
     public String mobile_url;
     public String rating_img_url;
+    public String image_url;
     public String name;
 }

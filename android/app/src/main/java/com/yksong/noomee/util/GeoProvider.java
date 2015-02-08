@@ -30,8 +30,8 @@ public class GeoProvider {
         mLocationManager = (LocationManager)
                 appContext.getSystemService(Context.LOCATION_SERVICE);
 
-        mLocationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,
-                new NoomeeLocationListener(), null);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 20,
+                new NoomeeLocationListener());
     }
 
     public Location getLocation(){

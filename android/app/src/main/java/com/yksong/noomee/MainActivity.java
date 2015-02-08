@@ -1,6 +1,8 @@
 package com.yksong.noomee;
 
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -36,14 +38,13 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    private Fragment mDeciderFragment = new DeciderFragment();
-    private Fragment mActivitiesFragment = new ActivitiesFragment();
+    public Fragment mDeciderFragment = new DeciderFragment();
+    public Fragment mActivitiesFragment = new ActivitiesFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
