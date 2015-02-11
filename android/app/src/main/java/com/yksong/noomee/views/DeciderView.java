@@ -67,6 +67,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
             @Override
             public void onClick(View v) {
                     v.setSelected(true);
+                    mLoadingDialog.show();
                     mPresenter.getTags();
             }
         });
@@ -88,33 +89,29 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
     public ChiTag[] getSelectedTags(){
         return mChiTagView.getSelectedTags();
     }
-    public AlertDialog getDialog() {return mDialog;}
 
-    public void showTagsDialog() {
-        if (mDialog == null) {
-            mDialog = new AlertDialog.Builder(getContext())
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ChiTagView tagView = (ChiTagView)
-                                    mDialog.findViewById(R.id.chi_tag_view);
+    public void showTagsDialog(ChiTag[] tags) {
+        mLoadingDialog.dismiss();
+        final ChiTagView dialogTagView = (ChiTagView)LayoutInflater.from(
+                getContext()).inflate(R.layout.cuisine_dialog, null);
 
-                            mChiTagView.setTags(tagView.getSelectedTags());
-                            tagView.resetTags();
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel,
-                            new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
-                    .setView(LayoutInflater.from(
-                            getContext()).inflate(R.layout.cuisine_dialog, null))
-                    .show();
-        } else {
-            mDialog.show();
-        }
+        dialogTagView.setTags(tags);
+
+        new AlertDialog.Builder(getContext())
+            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mChiTagView.setTags(dialogTagView.getSelectedTags());
+                    dialogTagView.resetTags();
+                }
+            })
+            .setNegativeButton(android.R.string.cancel,
+                    new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {}
+            })
+            .setView(dialogTagView)
+            .show();
     }
 
     public void showRestaurant(final Restaurant restaurant) {
@@ -169,6 +166,20 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
                                 requestRestaurant();
                             }
                         })
+                .show();
+    }
+
+    public void showLocationPromote() {
+        mLoadingDialog.dismiss();
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.location_disabled)
+                .setMessage(R.string.location_disalbed_message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
                 .show();
     }
 

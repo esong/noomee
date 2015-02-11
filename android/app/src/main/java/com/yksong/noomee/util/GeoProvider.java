@@ -8,6 +8,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import java.util.List;
+
 /**
  * Created by esong on 2015-01-13.
  */
@@ -30,12 +32,41 @@ public class GeoProvider {
         mLocationManager = (LocationManager)
                 appContext.getSystemService(Context.LOCATION_SERVICE);
 
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 20,
-                new NoomeeLocationListener());
+        NoomeeLocationListener listener = new NoomeeLocationListener();
+
+        List<String> providers = mLocationManager.getAllProviders();
+
+        if (providers.contains(LocationManager.GPS_PROVIDER)) {
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 5000, 20, listener);
+        }
+
+        if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER, 5000, 20, listener);
+        }
     }
 
     public Location getLocation(){
-        return mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location locationGPS = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        Location locationNet =
+                mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        long GPSLocationTime = 0;
+        if (null != locationGPS) { GPSLocationTime = locationGPS.getTime(); }
+
+        long NetLocationTime = 0;
+
+        if (null != locationNet) {
+            NetLocationTime = locationNet.getTime();
+        }
+
+        if ( 0 < GPSLocationTime - NetLocationTime ) {
+            return locationGPS;
+        }
+        else {
+            return locationNet;
+        }
     }
 
     public boolean hasUpdate(Location location) {

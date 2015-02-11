@@ -18,6 +18,8 @@
     <string name="Loading">Loading&#8230;</string>
 
     <string name="restaurant_icon">Restaurant Icon</string>
+    <string name="location_disabled">Location Disabled</string>
+    <string name="location_disalbed_message">Please enable location service.</string>
 
     <!--Testing purpose-->
     <string-array name="list_of_countries">

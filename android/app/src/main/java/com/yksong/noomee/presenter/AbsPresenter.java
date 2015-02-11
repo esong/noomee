@@ -1,17 +1,11 @@
 package com.yksong.noomee.presenter;
 
-import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import com.yksong.noomee.network.HttpCallBack;
-
-import java.io.IOException;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by esong on 2015-01-11.
@@ -28,30 +22,15 @@ public abstract class AbsPresenter<T extends View> {
         return mView;
     }
 
-    public abstract class PresenterCallBack<T> extends HttpCallBack<T> {
-        public PresenterCallBack(Class<T> clazz) {
-            super(clazz);
-        }
-
-        public void showErrorMessage(final Exception e){
+    public abstract class PresenterCallBack<T> implements Callback<T> {
+        public void failure(final RetrofitError error) {
             mView.getHandler().post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getView().getContext(), sError + e.getMessage(),
+                    Toast.makeText(getView().getContext(), sError + error.getMessage(),
                             Toast.LENGTH_LONG).show();
                 }
             });
         }
-
-        public void callback(final T parseObj) {
-            mView.getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    UiCallBack(parseObj);
-                }
-            });
-        }
-
-        public abstract void UiCallBack(T parsedObj);
     }
 }
