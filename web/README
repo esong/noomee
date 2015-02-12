@@ -2,3 +2,17 @@ This is your new Play application
 =================================
 
 This file will be packaged with your application, when using `activator dist`.
+
+How to deploy:
+$ ssh root@104.131.89.180
+password is n00m13s3rv3r
+
+kill the big ass java process, for example:
+root     15912 25.2 18.5 2082028 188388 pts/1  Sl   21:25   0:04 java -Xms1024m -Xmx1024m -XX:MaxPermSize=256m -XX
+
+$ ./activator dist
+then unzip and find web executable in bin/:
+$ nohup ./web &
+to start process in background
+
+TADA!!!
