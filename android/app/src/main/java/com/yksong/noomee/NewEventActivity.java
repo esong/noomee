@@ -228,6 +228,8 @@ public class NewEventActivity extends ActionBarActivity {
                                         eventTimeHour,
                                         eventTimeMinute
                                 );
+
+                                NewEventActivity.this.finish();
                             }
                         })
                         .setNegativeButton("No", null)

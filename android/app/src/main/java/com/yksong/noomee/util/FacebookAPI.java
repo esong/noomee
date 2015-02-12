@@ -1,8 +1,12 @@
 package com.yksong.noomee.util;
 
+import android.util.Log;
+
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.model.GraphUser;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -11,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FacebookAPI {
-    public static void getFriends() {
+    private static String className = "FacebookAPI";
+
+    public static void getMyFriends(final APICallback<List<ParseObject>> callback) {
         Request.newMyFriendsRequest(ParseFacebookUtils.getSession(), new Request.GraphUserListCallback() {
             @Override
             public void onCompleted(List<GraphUser> users, Response response) {
@@ -21,16 +27,22 @@ public class FacebookAPI {
                         friendsList.add(user.getId());
                     }
 
-                    // Construct a ParseUser query that will find friends whose
-                    // facebook IDs are contained in the current user's friend list.
-                    ParseQuery friendQuery = ParseQuery.getQuery("User");
+                    ParseQuery<ParseObject> friendQuery = ParseQuery.getQuery("_User");
                     friendQuery.whereContainedIn("fbId", friendsList);
 
-                    // findObjects will return a list of ParseUsers that are friends with
-                    // the current user
-                    List<ParseObject> friendUsers = friendQuery.find();
+                    friendQuery.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> parseObjects, ParseException e) {
+                            if (e == null) {
+                                callback.run(parseObjects);
+                            } else {
+                                Log.e(className, "Could not find my friends.");
+                                callback.run(new ArrayList<ParseObject>());
+                            }
+                        }
+                    });
                 }
             }
-        });
+        }).executeAsync();
     }
 }
