@@ -30,6 +30,7 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.yksong.noomee.start.StartActivity;
+import com.yksong.noomee.util.APICallback;
 import com.yksong.noomee.util.ParseAPI;
 
 import java.util.Calendar;
@@ -48,7 +49,7 @@ public class NewEventActivity extends ActionBarActivity {
     private AutoCompleteTextView restaurantAutoComplete;
 
     /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
+     * Used to store the last screen title. For use in
      */
     private CharSequence mTitle;
 
@@ -232,8 +233,23 @@ public class NewEventActivity extends ActionBarActivity {
                                 NewEventActivity.this.finish();
                             }
                         })
-                        .setNegativeButton("No", null)
-                        .show();
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ParseAPI.getMyAndFriendsEvents(
+                                        ParseUser.getCurrentUser(),
+                                        new APICallback<List<ParseObject>>() {
+                                            @Override
+                                            public void run(List<ParseObject> parseObj) {
+                                                // TODO parseObj
+                                            }
+                                        },
+                                        20
+                                );
+
+                                NewEventActivity.this.finish();
+                            }
+                        }).show();
                 return true;
             }
         }
