@@ -1,41 +1,35 @@
 package com.yksong.noomee.views;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.net.ParseException;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
-import android.text.format.Time;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.parse.ParseObject;
-import com.parse.ParseUser;
+import com.facebook.widget.ProfilePictureView;
 import com.yksong.noomee.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import com.yksong.noomee.util.APICallback;
-import com.yksong.noomee.util.ParseAPI;
+import android.content.Intent;
+
+import com.yksong.noomee.NewEventActivity;
+import com.yksong.noomee.model.EatingEvent;
+import com.yksong.noomee.presenter.ActivitiesPresenter;
 
 /**
  * Created by esong on 2015-01-01.
  */
 public class ActivitiesView extends FrameLayout {
     private RecyclerView mRecList;
+    private ActivitiesPresenter mPresenter = new ActivitiesPresenter();
 
     public ActivitiesView(Context context) {
         this(context, null);
@@ -51,19 +45,7 @@ public class ActivitiesView extends FrameLayout {
 
     @Override
     protected void onFinishInflate() {
-        findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ( (Activity) getContext() ).startActivity(
-                                new Intent(getContext(), NewEventActivity.class));
-            }
-        });
-    }
-
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-
+        mPresenter.setView(this);
 
         mRecList = (RecyclerView) findViewById(R.id.cardList);
         mRecList.setHasFixedSize(true);
@@ -73,56 +55,30 @@ public class ActivitiesView extends FrameLayout {
 
         ContactAdapter ca = new ContactAdapter(new ArrayList<EatingEvent>());
         mRecList.setAdapter(ca);
-        getEventList();
+
+        findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getContext().startActivity(
+                                new Intent(getContext(), NewEventActivity.class));
+            }
+        });
+        mPresenter.getEventList();
     }
 
-    private void createList(List<EatingEvent> result){
+    public void createList(List<EatingEvent> result){
         ContactAdapter ca = new ContactAdapter(result);
         mRecList.setAdapter(ca);
-    }
-
-
-    private void getEventList() {
-        ParseAPI.getMyAndFriendsEvents( ParseUser.getCurrentUser(),
-                new APICallback<List<ParseObject>>() {
-                    @Override
-                    public void run(List<ParseObject> parseObj) {
-                        for(int i=0;i<parseObj.size();i++)
-                        {
-                            ArrayList<ParseObject> users = (ArrayList<ParseObject>)parseObj.get(i).get("users");
-                            for(int j=0;j<users.size();j++)
-                                System.out.println("user "+j+": "+users.get(j));
-                            System.out.println("cnm2: "+parseObj.get(i).get("scheduledAt"));
-                        }
-
-                        List<EatingEvent> result = new ArrayList<EatingEvent>();
-                        for (int i=1; i <= 20; i++) {
-                            EatingEvent ci = new EatingEvent();
-
-                            ci.location="Fucking Tomato";
-                            result.add(ci);
-                        }
-                        createList(result);
-                    }
-                },
-                20);
-    }
-
-    public class EatingEvent {
-        protected String creator;
-        protected String location;
-        protected SimpleDateFormat time;
-        protected ArrayList<String> users;
     }
 
     public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
         private List<EatingEvent> eventList;
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM-dd'-'HH:mm");
 
         public ContactAdapter(List<EatingEvent> eventList) {
             this.eventList = eventList;
         }
-
 
         @Override
         public int getItemCount() {
@@ -132,16 +88,15 @@ public class ActivitiesView extends FrameLayout {
         @Override
         public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
             EatingEvent ci = eventList.get(i);
-            ci.time=new SimpleDateFormat("yyyy-MM-dd'-'HH:mm");
-            String date="";
-            try {
-                Calendar c = Calendar.getInstance();
-                date = ci.time.format(c.getTime());
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            contactViewHolder.eventInfo.setText("I am going to eat at "+ci.location+" at "+date);
+
+            contactViewHolder.mEventInfo.setText(TextUtils.join(", ", ci.users) +
+                    " going to eat at " + ci.location + " at "
+                    + mSimpleDateFormat.format(ci.time));
+
+            contactViewHolder.mProfilePicture.setProfileId(ci.users.get(0).id);
+            contactViewHolder.mUserName.setText(ci.users.get(0).name);
+            contactViewHolder.mTimeText.setText(
+                    DateUtils.getRelativeTimeSpanString(ci.time.getTime()));
         }
 
         @Override
@@ -154,12 +109,17 @@ public class ActivitiesView extends FrameLayout {
         }
 
         public class ContactViewHolder extends RecyclerView.ViewHolder {
-
-            protected TextView eventInfo;
+            private TextView mEventInfo;
+            private ProfilePictureView mProfilePicture;
+            private TextView mUserName;
+            private TextView mTimeText;
 
             public ContactViewHolder(View v) {
                 super(v);
-                eventInfo =  (TextView) v.findViewById(R.id.txtEvent);
+                mEventInfo = (TextView) v.findViewById(R.id.txtEvent);
+                mProfilePicture = (ProfilePictureView) v.findViewById(R.id.profile_picture);
+                mUserName = (TextView) v.findViewById(R.id.user_name);
+                mTimeText = (TextView) v.findViewById(R.id.time_text);
             }
         }
     }
