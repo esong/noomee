@@ -57,6 +57,7 @@ public class ActivitiesPresenter extends AbsPresenter<ActivitiesView> {
                                     new ArrayList<FacebookUser>());
                             RequestBatch requestBatch = new RequestBatch();
 
+                            // Get all users
                             for (int j = 0; j < userObjects.size(); j++) {
                                 try {
                                     requestBatch.add(createUserRequest((String)
@@ -77,6 +78,7 @@ public class ActivitiesPresenter extends AbsPresenter<ActivitiesView> {
 
                                     // create the list after all users are loaded.
                                     if (result.size() == parseObjects.size()) {
+                                        Collections.sort(result);
                                         getView().createList(result);
                                     }
                                 }
