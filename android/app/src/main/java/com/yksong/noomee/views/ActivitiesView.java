@@ -1,6 +1,7 @@
 package com.yksong.noomee.views;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -27,9 +28,11 @@ import com.yksong.noomee.presenter.ActivitiesPresenter;
 /**
  * Created by esong on 2015-01-01.
  */
-public class ActivitiesView extends FrameLayout {
+public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView mRecList;
     private ActivitiesPresenter mPresenter = new ActivitiesPresenter();
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private boolean mStarted;
 
     public ActivitiesView(Context context) {
         this(context, null);
@@ -60,15 +63,34 @@ public class ActivitiesView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 getContext().startActivity(
-                                new Intent(getContext(), NewEventActivity.class));
+                        new Intent(getContext(), NewEventActivity.class));
             }
         });
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryDark));
+
         mPresenter.getEventList();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus && !mStarted) {
+            mSwipeRefreshLayout.setRefreshing(true);
+            mStarted = true;
+        }
+    }
+
     public void createList(List<EatingEvent> result){
+        mSwipeRefreshLayout.setRefreshing(false);
         ContactAdapter ca = new ContactAdapter(result);
         mRecList.setAdapter(ca);
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.getEventList();
     }
 
     public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
