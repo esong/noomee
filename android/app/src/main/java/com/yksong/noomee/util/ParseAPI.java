@@ -52,7 +52,9 @@ public class ParseAPI {
                         public void done(ParseObject parseObject, ParseException e) {
                             if (e == null) {
                                 ArrayList<ParseObject> users = (ArrayList<ParseObject>)parseObject.get("users");
-                                users.add(user);
+                                if (!users.contains(user)) {
+                                    users.add(user);
+                                }
                                 parseObject.saveInBackground();
                             } else {
                                 Log.e(className, "Error getting event!");
