@@ -236,17 +236,6 @@ public class NewEventActivity extends ActionBarActivity {
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ParseAPI.getMyAndFriendsEvents(
-                                        ParseUser.getCurrentUser(),
-                                        new APICallback<List<ParseObject>>() {
-                                            @Override
-                                            public void run(List<ParseObject> parseObj) {
-                                                // TODO parseObj
-                                            }
-                                        },
-                                        20
-                                );
-
                                 NewEventActivity.this.finish();
                             }
                         }).show();

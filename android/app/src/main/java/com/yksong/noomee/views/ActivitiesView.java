@@ -28,11 +28,15 @@ import com.yksong.noomee.presenter.ActivitiesPresenter;
 /**
  * Created by esong on 2015-01-01.
  */
-public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.OnRefreshListener {
+public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.OnRefreshListener{
     private RecyclerView mRecList;
     private ActivitiesPresenter mPresenter = new ActivitiesPresenter();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean mStarted;
+
+    private int mPreviousTotal = 0;
+    private boolean mLoading = true;
+    private static int sVisibleThreshold = 20;
 
     public ActivitiesView(Context context) {
         this(context, null);
@@ -52,12 +56,39 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
 
         mRecList = (RecyclerView) findViewById(R.id.cardList);
         mRecList.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        final LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         mRecList.setLayoutManager(llm);
 
-        ContactAdapter ca = new ContactAdapter(new ArrayList<EatingEvent>());
+        EventAdapter ca = new EventAdapter(new ArrayList<EatingEvent>());
         mRecList.setAdapter(ca);
+
+        mRecList.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int visibleItemCount = recyclerView.getChildCount();
+                int totalItemCount = llm.getItemCount();
+                int firstVisibleItem = llm.findFirstVisibleItemPosition();
+
+                if (mLoading) {
+                    if (totalItemCount > mPreviousTotal) {
+                        mLoading = false;
+                        mPreviousTotal = totalItemCount;
+                    }
+                }
+                if (!mLoading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + sVisibleThreshold)/2) {
+                    // End has been reached
+                    System.out.println("End");
+
+                    getEventListAsync(mPreviousTotal, sVisibleThreshold);
+                    // Do something
+                    mLoading = true;
+                }
+            }
+        });
 
         findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
             @Override
@@ -71,7 +102,7 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimaryDark));
 
-        mPresenter.getEventList();
+        getEventListAsync(0, sVisibleThreshold);
     }
 
     @Override
@@ -82,23 +113,38 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
         }
     }
 
-    public void createList(List<EatingEvent> result){
+    public void createList(List<EatingEvent> result, int skip){
         mSwipeRefreshLayout.setRefreshing(false);
-        ContactAdapter ca = new ContactAdapter(result);
-        mRecList.setAdapter(ca);
+
+        EventAdapter eventAdapter;
+        // if reload the list
+        if (skip == 0) {
+            EatingEvent currentFirst = ((EventAdapter)mRecList.getAdapter()).getFirstItem();
+            if ( currentFirst == null || currentFirst.compareTo(result.get(0)) != 0) {
+                mPreviousTotal = 0;
+                eventAdapter = new EventAdapter(result);
+                mRecList.setAdapter(eventAdapter);
+            }
+        } else {
+            ((EventAdapter)mRecList.getAdapter()).appendList(result);
+        }
     }
 
     @Override
     public void onRefresh() {
-        mPresenter.getEventList();
+        getEventListAsync(0, sVisibleThreshold);
     }
 
-    public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
+    private void getEventListAsync(int skip, int limit) {
+        mPresenter.getEventList(skip, limit);
+    }
+
+    public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ContactViewHolder> {
 
         private List<EatingEvent> eventList;
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM-dd'-'HH:mm");
 
-        public ContactAdapter(List<EatingEvent> eventList) {
+        public EventAdapter(List<EatingEvent> eventList) {
             this.eventList = eventList;
         }
 
@@ -107,18 +153,31 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
             return eventList.size();
         }
 
+        public EatingEvent getFirstItem() {
+            if (eventList != null && eventList.size() > 0) {
+                return eventList.get(0);
+            }
+
+            return null;
+        }
+
+        public void appendList(List<EatingEvent> newList) {
+            eventList.addAll(eventList.size(), newList);
+            notifyItemRangeInserted(eventList.size(), newList.size());
+        }
+
         @Override
         public void onBindViewHolder(ContactViewHolder contactViewHolder, int i) {
-            EatingEvent ci = eventList.get(i);
+            EatingEvent event = eventList.get(i);
 
-            contactViewHolder.mEventInfo.setText(TextUtils.join(", ", ci.users) +
-                    " going to eat at " + ci.location + " at "
-                    + mSimpleDateFormat.format(ci.time));
+            contactViewHolder.mEventInfo.setText(TextUtils.join(", ", event.users) +
+                    " going to eat at " + event.location + " at "
+                    + mSimpleDateFormat.format(event.time));
 
-            contactViewHolder.mProfilePicture.setProfileId(ci.users.get(0).id);
-            contactViewHolder.mUserName.setText(ci.users.get(0).name);
+            contactViewHolder.mProfilePicture.setProfileId(event.users.get(0).mId);
+            contactViewHolder.mUserName.setText(event.users.get(0).mName);
             contactViewHolder.mTimeText.setText(
-                    DateUtils.getRelativeTimeSpanString(ci.time.getTime()));
+                    DateUtils.getRelativeTimeSpanString(event.time.getTime()));
         }
 
         @Override
