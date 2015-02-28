@@ -26,6 +26,8 @@ import java.util.Arrays;
  */
 public class StartActivity extends FragmentActivity {
     private static final String FB_ID = "fbId";
+    private static final String FIRST_NAME = "firstName";
+    private static final String LAST_NAME = "lastName";
     private static final String TAG = "StartActivity";
     private static final String[] FB_PERMISSION = new String [] {"user_friends"};
 
@@ -52,8 +54,8 @@ public class StartActivity extends FragmentActivity {
                 if (user == null) {
                     Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
                 } else {
-                    if (user.isNew() || user.get(FB_ID) == null) {
-                        getFacebookIdInBackground();
+                    if (user.isNew() || user.get(FB_ID) == null || user.get(FIRST_NAME) == null || user.get(LAST_NAME) == null) {
+                        getFacebookUserInfoInBackground();
                     }
                     Log.d(TAG, "User logged in through Facebook!");
                     startMainActivity();
@@ -62,13 +64,16 @@ public class StartActivity extends FragmentActivity {
         });
     }
 
-    private void getFacebookIdInBackground() {
+    private void getFacebookUserInfoInBackground() {
         Request.newMeRequest(ParseFacebookUtils.getSession(), new Request.GraphUserCallback() {
             @Override
             public void onCompleted(GraphUser user, Response response) {
                 if (user != null) {
-                    ParseUser.getCurrentUser().put(FB_ID, user.getId());
-                    ParseUser.getCurrentUser().saveInBackground();
+                    ParseUser parseUser = ParseUser.getCurrentUser();
+                    parseUser.put(FB_ID, user.getId());
+                    parseUser.put(FIRST_NAME, user.getFirstName());
+                    parseUser.put(LAST_NAME, user.getLastName());
+                    parseUser.saveInBackground();
                 }
             }
         }).executeAsync();

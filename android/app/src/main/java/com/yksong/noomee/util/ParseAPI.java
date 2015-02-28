@@ -3,6 +3,7 @@ package com.yksong.noomee.util;
 import android.util.Log;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -36,6 +37,35 @@ public class ParseAPI {
         });
     }
 
+    public static void joinEvent(final ParseObject user,
+                                 final String eventId) {
+        ParseObject activity = new ParseObject("Activity");
+        activity.put("user", user);
+        activity.put("eventId", eventId);
+        activity.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    ParseQuery<ParseObject> eventQuery = ParseQuery.getQuery("Event");
+                    eventQuery.getInBackground(eventId, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject parseObject, ParseException e) {
+                            if (e == null) {
+                                ArrayList<ParseObject> users = (ArrayList<ParseObject>)parseObject.get("users");
+                                users.add(user);
+                                parseObject.saveInBackground();
+                            } else {
+                                Log.e(className, "Error getting event!");
+                            }
+                        }
+                    });
+                } else {
+                    Log.e(className, "Error joining event!");
+                }
+            }
+        });
+    }
+
     public static void getMyAndFriendsEvents(final ParseObject user,
                                              final APICallback<List<ParseObject>> callback,
                                              final int limit) {
@@ -49,6 +79,7 @@ public class ParseAPI {
                 eventQuery.whereMatchesKeyInQuery("objectId", "eventId", activityQuery);
                 eventQuery.orderByDescending("scheduledAt");
                 eventQuery.setLimit(limit);
+                eventQuery.include("users");
                 eventQuery.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> parseObjects, ParseException e) {
