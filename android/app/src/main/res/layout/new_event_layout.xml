@@ -12,71 +12,72 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/Time"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Time: " />
+            android:orientation="horizontal"
+            android:weightSum="7">
 
-        <TextView
-            android:id="@+id/Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date: " />
+            <TextView
+                android:id="@+id/Time"
+                android:layout_marginLeft="15dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Time: "
+                android:layout_weight="2"/>
+
+            <Button
+                android:id="@+id/buttonPickTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="7">
+            <TextView
+                android:id="@+id/Date"
+                android:layout_marginLeft="15dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:layout_weight="2"/>
+
+            <Button
+                android:id="@+id/buttonPickDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="7">
             <TextView
                 android:id="@+id/Location"
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Location: " />
+                android:text="Location: "
+                android:layout_weight="2"/>
 
             <AutoCompleteTextView
                 android:id="@+id/eventLocation"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:ems="10" />
+                android:ems="10"
+                android:layout_weight="4"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonPickDate"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="pick_date" />
-
-        <Button
-            android:id="@+id/buttonPickTime"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="pick_time" />
-
-        <!--LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/postEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Post"
-                android:onClick="showTimePickerDialog" />
-
-            <Button
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cancel"
-                android:onClick="showTimePickerDialog" />
-        </LinearLayout-->
-
     </LinearLayout>
 
 </com.yksong.noomee.views.NewEventView>

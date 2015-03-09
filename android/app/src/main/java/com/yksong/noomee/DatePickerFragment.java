@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -31,8 +32,8 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        TextView dateView = (TextView) callingActivity.findViewById(R.id.Date);
-        callingActivity.onUserSetTimeInfo(dateView, "Date: "+year+" / "+pad(month+1)+" / "+pad(day));
+        Button dateButton = (Button) callingActivity.findViewById(R.id.buttonPickDate);
+        callingActivity.onUserSetTimeInfo(dateButton, year+" / "+pad(month+1)+" / "+pad(day));
         callingActivity.setEventDate(year,month,day);
     }
 

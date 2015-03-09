@@ -21,6 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -72,10 +73,12 @@ public class NewEventActivity extends ActionBarActivity {
         eventDateDay = now.monthDay;
 
         //use current time and current date as default time information
-        TextView timeText = (TextView) findViewById(R.id.Time);
-        timeText.setText("Time: "+pad(eventTimeHour)+" : "+pad(eventTimeMinute));
-        TextView dateText = (TextView) findViewById(R.id.Date);
-        dateText.setText("Date: "+eventDateYear+" / "+pad(eventDateMonth)+" / "+pad(eventDateDay));
+        Button timeButton = (Button)findViewById(R.id.buttonPickTime);
+        timeButton.setText(pad(eventTimeHour)+" : "+pad(eventTimeMinute));
+
+        Button dateButton = (Button)findViewById(R.id.buttonPickDate);
+        dateButton.setText(eventDateYear+" / "+pad(eventDateMonth+1)+" / "+pad(eventDateDay));
+
         //use empty string as default location
         TextView LocationText = (TextView) findViewById(R.id.Location);
         LocationText.setText("Location:");
@@ -214,42 +217,26 @@ public class NewEventActivity extends ActionBarActivity {
                 onBackPressed();
                 return true;
             case R.id.action_post: {
-                new AlertDialog.Builder(this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Posting")
-                        .setMessage("Post nm")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ParseAPI.createEvent(
-                                        ParseUser.getCurrentUser(),
-                                        eventDateYear,
-                                        eventDateMonth,
-                                        eventDateDay,
-                                        eventTimeHour,
-                                        eventTimeMinute
-                                );
+                ParseAPI.createEvent(
+                        ParseUser.getCurrentUser(),
+                        eventDateYear,
+                        eventDateMonth,
+                        eventDateDay,
+                        eventTimeHour,
+                        eventTimeMinute
+                );
 
-                                NewEventActivity.this.finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ParseAPI.getMyAndFriendsEvents(
-                                        ParseUser.getCurrentUser(),
-                                        new APICallback<List<ParseObject>>() {
-                                            @Override
-                                            public void run(List<ParseObject> parseObj) {
-                                                // TODO parseObj
-                                            }
-                                        },
-                                        20
-                                );
-
-                                NewEventActivity.this.finish();
-                            }
-                        }).show();
+                NewEventActivity.this.finish();
+//                ParseAPI.getMyAndFriendsEvents(
+//                        ParseUser.getCurrentUser(),
+//                        new APICallback<List<ParseObject>>() {
+//                            @Override
+//                            public void run(List<ParseObject> parseObj) {
+//                                // TODO parseObj
+//                            }
+//                        },
+//                        20
+//                );
                 return true;
             }
         }
