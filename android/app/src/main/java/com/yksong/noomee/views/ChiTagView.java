@@ -190,7 +190,9 @@ public class ChiTagView extends ViewGroup {
         SavedState ss = (SavedState)state;
         super.onRestoreInstanceState(ss.getSuperState());
 
-        setTags(ss.stateToSave);
+        if (ss.stateToSave != null) {
+            setTags(ss.stateToSave);
+        }
     }
 
     static class SavedState extends BaseSavedState {

@@ -2,8 +2,10 @@ package com.yksong.noomee;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -19,10 +21,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -30,12 +34,20 @@ import com.facebook.Session;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.yksong.noomee.model.Restaurant;
+import com.yksong.noomee.network.NoomeeClient;
 import com.yksong.noomee.start.StartActivity;
 import com.yksong.noomee.util.APICallback;
+import com.yksong.noomee.util.GeoProvider;
+import com.yksong.noomee.util.NoomeeAPI;
 import com.yksong.noomee.util.ParseAPI;
 
 import java.util.Calendar;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Ed on 16/01/2015.
@@ -46,8 +58,12 @@ public class NewEventActivity extends ActionBarActivity {
     private int eventDateYear;
     private int eventDateMonth;
     private int eventDateDay;
+    private String mRestaurantId;
 
     private AutoCompleteTextView restaurantAutoComplete;
+
+    private NoomeeAPI mNoomeeAPI = NoomeeClient.getApi();
+    private GeoProvider mGeoProvider = GeoProvider.getInstance();
 
     /**
      * Used to store the last screen title. For use in
@@ -83,15 +99,44 @@ public class NewEventActivity extends ActionBarActivity {
         TextView LocationText = (TextView) findViewById(R.id.Location);
         LocationText.setText("Location:");
 
-        String[] countries = getResources().
-                getStringArray(R.array.list_of_countries);
-        ArrayAdapter adapter = new ArrayAdapter
-                (this,android.R.layout.simple_list_item_1,countries);
+        Location location = mGeoProvider.getLocation();
+
         restaurantAutoComplete = (AutoCompleteTextView) findViewById(R.id.eventLocation);
-        restaurantAutoComplete.setAdapter(adapter);
+        restaurantAutoComplete.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, new String[0]));
+
+        if (location != null) {
+            mNoomeeAPI.businesses(location.getLatitude(), location.getLongitude(),
+                    new Callback<Restaurant[]>() {
+                @Override
+                public void success(final Restaurant[] restaurants, Response response) {
+                    final String[] restaurantNames = new String[restaurants.length];
+
+                    for (int i = 0 ; i < restaurants.length; ++i) {
+                        restaurantNames[i] = restaurants[i].name;
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<> (NewEventActivity.this,
+                            android.R.layout.simple_list_item_1, restaurantNames);
+                    restaurantAutoComplete.setAdapter(adapter);
+                    restaurantAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent,
+                                                View view, int position, long id) {
+                            mRestaurantId = restaurants[position].id;
+                            System.out.println(mRestaurantId);
+                        }
+                    });
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
+        }
+
         addListeners();
-
-
     }
 
     @Override
@@ -223,7 +268,8 @@ public class NewEventActivity extends ActionBarActivity {
                         eventDateMonth,
                         eventDateDay,
                         eventTimeHour,
-                        eventTimeMinute
+                        eventTimeMinute,
+                        mRestaurantId
                 );
 
                 NewEventActivity.this.finish();
@@ -258,5 +304,14 @@ public class NewEventActivity extends ActionBarActivity {
     public void onUserSetTimeInfo(TextView view, String time) {
         TextView timeText = (TextView) findViewById(R.id.Time);
         view.setText(time);
+    }
+
+    private class RestaurantAdapter extends ArrayAdapter<Restaurant> {
+
+        public RestaurantAdapter(Context context, int resource) {
+            super(context, resource);
+        }
+
+
     }
 }

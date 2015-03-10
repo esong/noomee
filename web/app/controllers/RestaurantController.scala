@@ -39,8 +39,21 @@ object RestaurantController extends Controller {
         "count" -> Json.toJson(t._2.length)
       ))).toList.sortWith((jsValue1, jsValue2) => (jsValue1 \ "name").toString() < (jsValue2 \ "name").toString())
 
-    print(categoryMap)
-
     Ok(Json.toJson(categoryMap))
+  }
+
+  def businesses(term: String, lati: Double, longi: Double) = Action {
+    val responseJson = yelpAPI.searchForBusinessesByLatLong(term, lati, longi)
+    val json = (Json.parse(responseJson) \ "businesses").as[JsArray].value.map(biz =>
+      Json.toJson(Map(
+        "name" -> biz \ "name",
+        "id" -> biz \ "id"
+      ))).toList.sortWith((jsValue1, jsValue2) => (jsValue1 \ "name").toString() < (jsValue2 \ "name").toString())
+
+    Ok(Json.prettyPrint(Json.toJson(json)))
+  }
+
+  def business(id: String) = Action {
+    Ok(yelpAPI.searchByBusinessId(id))
   }
 }

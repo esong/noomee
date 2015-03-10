@@ -8,4 +8,5 @@ public class Restaurant {
     public String rating_img_url;
     public String image_url;
     public String name;
+    public String id;
 }

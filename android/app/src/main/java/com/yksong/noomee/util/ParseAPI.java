@@ -15,9 +15,11 @@ import java.util.List;
 public class ParseAPI {
     private static String className = "ParseAPI";
 
-    public static void createEvent(final ParseObject user, int year, int month, int day, int hour, int minute) {
+    public static void createEvent(final ParseObject user, int year, int month, int day, int hour,
+                                   int minute, String locationId) {
         final ParseObject event = new ParseObject("Event");
         event.put("scheduledAt", new GregorianCalendar(year, month, day, hour, minute).getTime());
+        event.put("locationId", locationId);
         ArrayList<ParseObject> users = new ArrayList<>();
         users.add(user);
         event.put("users", users);
