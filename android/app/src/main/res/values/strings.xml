@@ -24,6 +24,12 @@
     <string name="location_disabled">Location Disabled</string>
     <string name="location_disalbed_message">Please enable location service.</string>
 
+    <string-array name="push_promote">
+        <item>How about %1$s?</item>
+        <item>What about %1$s?</item>
+        <item>%1$s, sounds good?</item>
+    </string-array>
+
     <!--Testing purpose-->
     <string-array name="list_of_countries">
         <item >USA</item>

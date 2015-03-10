@@ -1,6 +1,10 @@
 package com.yksong.noomee.app;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 
 import com.crashlytics.android.Crashlytics;
 import com.parse.Parse;
@@ -9,6 +13,8 @@ import com.yksong.noomee.BuildConfig;
 import com.yksong.noomee.R;
 import com.yksong.noomee.network.NoomeeClient;
 import com.yksong.noomee.util.GeoProvider;
+
+import java.util.Calendar;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -28,5 +34,20 @@ public class NoomeeApp extends Application {
 
         GeoProvider.initialize(this);
         NoomeeClient.initialize(this);
+        startAlarmManager();
+    }
+
+    private void startAlarmManager() {
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
     }
 }
