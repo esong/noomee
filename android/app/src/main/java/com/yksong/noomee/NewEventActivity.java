@@ -58,7 +58,7 @@ public class NewEventActivity extends ActionBarActivity {
     private int eventDateYear;
     private int eventDateMonth;
     private int eventDateDay;
-    private String mRestaurantId;
+    private Restaurant mSelectedRestaurant;
 
     private AutoCompleteTextView restaurantAutoComplete;
 
@@ -110,21 +110,14 @@ public class NewEventActivity extends ActionBarActivity {
                     new Callback<Restaurant[]>() {
                 @Override
                 public void success(final Restaurant[] restaurants, Response response) {
-                    final String[] restaurantNames = new String[restaurants.length];
-
-                    for (int i = 0 ; i < restaurants.length; ++i) {
-                        restaurantNames[i] = restaurants[i].name;
-                    }
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<> (NewEventActivity.this,
-                            android.R.layout.simple_list_item_1, restaurantNames);
+                    ArrayAdapter<Restaurant> adapter = new ArrayAdapter<> (NewEventActivity.this,
+                            android.R.layout.simple_list_item_1, restaurants);
                     restaurantAutoComplete.setAdapter(adapter);
                     restaurantAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent,
                                                 View view, int position, long id) {
-                            mRestaurantId = restaurants[position].id;
-                            System.out.println(mRestaurantId);
+                            mSelectedRestaurant = (Restaurant) parent.getItemAtPosition(position);
                         }
                     });
                 }
@@ -262,6 +255,16 @@ public class NewEventActivity extends ActionBarActivity {
                 onBackPressed();
                 return true;
             case R.id.action_post: {
+                Restaurant postingRestaurant;
+
+                if (mSelectedRestaurant == null ||
+                     !restaurantAutoComplete.getText().toString().equals(mSelectedRestaurant.name)){
+                    postingRestaurant = new Restaurant();
+                    postingRestaurant.name = restaurantAutoComplete.getText().toString();
+                } else {
+                    postingRestaurant = mSelectedRestaurant;
+                }
+
                 ParseAPI.createEvent(
                         ParseUser.getCurrentUser(),
                         eventDateYear,
@@ -269,7 +272,7 @@ public class NewEventActivity extends ActionBarActivity {
                         eventDateDay,
                         eventTimeHour,
                         eventTimeMinute,
-                        mRestaurantId
+                        postingRestaurant
                 );
 
                 NewEventActivity.this.finish();
@@ -304,14 +307,5 @@ public class NewEventActivity extends ActionBarActivity {
     public void onUserSetTimeInfo(TextView view, String time) {
         TextView timeText = (TextView) findViewById(R.id.Time);
         view.setText(time);
-    }
-
-    private class RestaurantAdapter extends ArrayAdapter<Restaurant> {
-
-        public RestaurantAdapter(Context context, int resource) {
-            super(context, resource);
-        }
-
-
     }
 }

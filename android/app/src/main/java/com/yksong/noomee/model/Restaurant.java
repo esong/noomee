@@ -9,4 +9,8 @@ public class Restaurant {
     public String image_url;
     public String name;
     public String id;
+
+    public String toString() {
+        return name;
+    }
 }
