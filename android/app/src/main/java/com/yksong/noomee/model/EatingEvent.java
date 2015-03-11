@@ -9,10 +9,12 @@ import java.util.List;
 public class EatingEvent implements Comparable<EatingEvent> {
     public String location;
     public Date time;
+    public Date createdTime;
     public List<FacebookUser> users;
+    public String eventId;
 
     @Override
     public int compareTo(EatingEvent another) {
-        return another.time.compareTo(time);
+        return another.createdTime.compareTo(createdTime);
     }
 }

@@ -29,7 +29,9 @@ public class Hydrator {
             }
 
             eatingEvent.time = (Date) parseObject.get("scheduledAt");
+            eatingEvent.createdTime = (Date) parseObject.getCreatedAt();
             eatingEvent.location = "Test";
+            eatingEvent.eventId = parseObject.getObjectId();
             result.add(eatingEvent);
         }
 

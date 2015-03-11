@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -178,7 +179,7 @@ public class ParseAPI {
                 ParseQuery<ParseObject> eventQuery = ParseQuery.getQuery("Event");
                 eventQuery.include("users");
                 eventQuery.whereMatchesKeyInQuery("objectId", "eventId", activityQuery);
-                eventQuery.orderByDescending("scheduledAt");
+                eventQuery.orderByDescending("createdAt");
                 eventQuery.setSkip(skip);
                 eventQuery.setLimit(limit);
                 eventQuery.findInBackground(new FindCallback<ParseObject>() {
