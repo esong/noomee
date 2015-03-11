@@ -18,7 +18,8 @@ public class FacebookAPI {
     private static String className = "FacebookAPI";
 
     public static void getMyFriends(final APICallback<List<ParseObject>> callback) {
-        Request.newMyFriendsRequest(ParseFacebookUtils.getSession(), new Request.GraphUserListCallback() {
+        Request.newMyFriendsRequest(ParseFacebookUtils.getSession(),
+                new Request.GraphUserListCallback() {
             @Override
             public void onCompleted(List<GraphUser> users, Response response) {
                 if (users != null) {

@@ -22,4 +22,8 @@ public interface NoomeeAPI {
     @GET("/categories?term=restaurant")
     void getTags(@Query("lati") double lati, @Query("longi") double longi,
                  Callback<ChiTag[]> cb);
+
+    @GET("/businesses?term=restaurant")
+    void businesses(@Query("lati") double lati, @Query("longi")double longi,
+                          Callback<Restaurant[]> cb);
 }

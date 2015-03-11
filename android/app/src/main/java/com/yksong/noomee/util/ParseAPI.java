@@ -8,6 +8,10 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
+import com.yksong.noomee.model.Restaurant;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -16,9 +20,18 @@ import java.util.List;
 public class ParseAPI {
     private static String className = "ParseAPI";
 
-    public static void createEvent(final ParseObject user, int year, int month, int day, int hour, int minute) {
+    public static void createEvent(final ParseObject user, int year, int month, int day, int hour,
+                                   int minute, Restaurant restaurant) {
         final ParseObject event = new ParseObject("Event");
         event.put("scheduledAt", new GregorianCalendar(year, month, day, hour, minute).getTime());
+        final JSONObject restaurantObj = new JSONObject();
+        try {
+            restaurantObj.put("id", restaurant.id);
+            restaurantObj.put("name", restaurant.name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        event.put("restaurantObj", restaurantObj);
         ArrayList<ParseObject> users = new ArrayList<>();
         users.add(user);
         event.put("users", users);

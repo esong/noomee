@@ -13,6 +13,7 @@ import com.yksong.noomee.model.Restaurant;
 import com.yksong.noomee.network.HttpCallBack;
 import com.yksong.noomee.network.HttpClient;
 import com.yksong.noomee.network.HttpConfig;
+import com.yksong.noomee.network.NoomeeClient;
 import com.yksong.noomee.network.RequestBuilder;
 import com.yksong.noomee.util.GeoProvider;
 import com.yksong.noomee.util.NoomeeAPI;
@@ -34,13 +35,8 @@ import retrofit.client.Response;
  * Created by esong on 2015-01-11.
  */
 public class DeciderPresenter extends AbsPresenter<DeciderView> {
-    final HttpClient mClient = HttpClient.getInstance();
     final GeoProvider mGeoProvider = GeoProvider.getInstance();
-    RestAdapter mRestAdapter = new RestAdapter.Builder()
-            .setEndpoint(HttpConfig.NOOMEE_PROTOCOL + HttpConfig.NOOMEE_HOST)
-            .build();
-
-    NoomeeAPI mNoomeeAPI = mRestAdapter.create(NoomeeAPI.class);
+    final NoomeeAPI mNoomeeAPI = NoomeeClient.getApi();
 
     public void getRestaurant() {
         final DeciderView view = getView();

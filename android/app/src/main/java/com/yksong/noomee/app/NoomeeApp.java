@@ -22,6 +22,7 @@ public class NoomeeApp extends Application {
             Fabric.with(this, new Crashlytics());
         }
 
+        Parse.enableLocalDatastore(this);
         Parse.initialize(this, "X34utz63uXlItFOEEdWYPSo92ptbC39cQIOwGvMS",
                 "rkw1js5t3rr0f7ILH3Y7joFioVXoq3I38UnyP9t4");
         ParseFacebookUtils.initialize(getString(R.string.facebook_app_id));
