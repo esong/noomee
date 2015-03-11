@@ -68,6 +68,86 @@ public class ParseAPI {
         });
     }
 
+    public static void leaveEvent(final ParseObject user,
+                                  final String eventId) {
+        ParseQuery<ParseObject> eventQuery = ParseQuery.getQuery("Event");
+        eventQuery.getInBackground(eventId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    ArrayList<ParseObject> users = (ArrayList<ParseObject>)parseObject.get("users");
+                    boolean mayExist = true;
+                    while (mayExist) {
+                        boolean removed = false;
+                        for (ParseObject usr : users) {
+                            if (user.getObjectId().equals(usr.getObjectId())) {
+                                users.remove(usr);
+                                removed = true;
+                                break;
+                            }
+                        }
+                        mayExist = removed;
+                    }
+                    parseObject.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                ParseQuery<ParseObject> activityQuery = ParseQuery.getQuery("Activity");
+                                activityQuery.whereEqualTo("user", user);
+                                activityQuery.whereEqualTo("eventId", eventId);
+                                activityQuery.findInBackground(new FindCallback<ParseObject>() {
+                                    @Override
+                                    public void done(List<ParseObject> parseObjects, ParseException e) {
+                                        if (e == null) {
+                                            for (ParseObject activity : parseObjects) {
+                                                activity.deleteInBackground();
+                                            }
+                                        } else {
+                                            Log.e(className, "Error getting event!");
+                                        }
+                                    }
+                                });
+                            } else {
+                                Log.e(className, "Error saving event!");
+                            }
+                        }
+                    });
+                } else {
+                    Log.e(className, "Error finding event!");
+                }
+            }
+        });
+    }
+
+    public static void removeEvent(final ParseObject user,
+                                   final String eventId) {
+        ParseQuery<ParseObject> activityQuery = ParseQuery.getQuery("Activity");
+        activityQuery.whereEqualTo("eventId", eventId);
+        activityQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                if (e == null) {
+                    for (ParseObject activity : parseObjects) {
+                        activity.deleteInBackground();
+                    }
+                    ParseQuery<ParseObject> eventQuery = ParseQuery.getQuery("Event");
+                    eventQuery.getInBackground(eventId, new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject parseObject, ParseException e) {
+                            if (e == null) {
+                                parseObject.deleteInBackground();
+                            } else {
+                                Log.e(className, "Error getting event!");
+                            }
+                        }
+                    });
+                } else {
+                    Log.e(className, "Error finding activity!");
+                }
+            }
+        });
+    }
+
     public static void getMyAndFriendsEvents(final ParseObject user,
                                              final APICallback<List<ParseObject>> callback,
                                              final int limit) {
