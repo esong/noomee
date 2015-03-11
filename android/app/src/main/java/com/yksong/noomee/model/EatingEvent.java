@@ -12,6 +12,7 @@ public class EatingEvent implements Comparable<EatingEvent> {
     public Date createdTime;
     public List<FacebookUser> users;
     public String eventId;
+    public String restaurantId;
 
     @Override
     public int compareTo(EatingEvent another) {

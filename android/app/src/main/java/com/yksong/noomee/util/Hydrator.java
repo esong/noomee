@@ -4,9 +4,13 @@ import com.parse.ParseObject;
 import com.yksong.noomee.model.EatingEvent;
 import com.yksong.noomee.model.FacebookUser;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by esong on 2015-02-28.
@@ -30,7 +34,14 @@ public class Hydrator {
 
             eatingEvent.time = (Date) parseObject.get("scheduledAt");
             eatingEvent.createdTime = (Date) parseObject.getCreatedAt();
-            eatingEvent.location = "Test";
+
+            Map<Object, Object> restaurantObj = (HashMap)parseObject.get("restaurantObj");
+
+            if (restaurantObj != null) {
+                eatingEvent.location = (String) restaurantObj.get("name");
+                eatingEvent.restaurantId = (String) restaurantObj.get("id");
+            }
+
             eatingEvent.eventId = parseObject.getObjectId();
             result.add(eatingEvent);
         }

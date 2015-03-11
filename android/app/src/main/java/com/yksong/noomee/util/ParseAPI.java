@@ -182,7 +182,14 @@ public class ParseAPI {
                 eventQuery.orderByDescending("createdAt");
                 eventQuery.setSkip(skip);
                 eventQuery.setLimit(limit);
-                eventQuery.findInBackground(new FindCallback<ParseObject>() {
+                eventQuery.findInBackground()
+                        .onSuccessTask(new Continuation<List<ParseObject>, Task<List<EatingEvent>>>() {
+                            @Override
+                            public Task<List<EatingEvent>> then(Task<List<ParseObject>> task)
+                                    throws Exception {
+                                return Task.forResult(Hydrator.hydrateEventFriends(task.getResult()));
+                            }
+                        }).onSuccess(new Continuation<List<EatingEvent>, Void>() {
                     @Override
                     public Void then(Task<List<EatingEvent>> task) throws Exception {
                         callback.run(task.getResult());

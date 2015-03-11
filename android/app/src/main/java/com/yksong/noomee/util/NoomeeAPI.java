@@ -26,4 +26,7 @@ public interface NoomeeAPI {
     @GET("/businesses?term=restaurant")
     void businesses(@Query("lati") double lati, @Query("longi")double longi,
                           Callback<Restaurant[]> cb);
+
+    @GET("/business")
+    void business(@Query("id") String id, Callback<Restaurant> cb);
 }
