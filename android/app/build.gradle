@@ -61,6 +61,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'it.dex.dexmovingimageview:dexmovingimageviewlib:0.1.0'
 
     // Espresso
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'

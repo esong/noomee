@@ -1,45 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:dex="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="36sp"
-        android:layout_marginTop="50dip"
-        android:layout_centerHorizontal="true"/>
+    <it.dex.movingimageviewlib.DexMovingImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/chilis"
+        dex:evaluator="timeBased"
+        dex:generator="angled"
+        dex:minZoom="1.75"
+        dex:transition_duration_millis="1000"
+        dex:maxZoom="3.2"
+        dex:zoom="3.2"
+        dex:speed="40"
+        dex:drawer="scale|translate"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="70dip"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        android:text="@string/com_facebook_loginview_log_in_button"
-        android:textColor="@color/com_facebook_loginview_text_color"
-        android:textSize="@dimen/com_facebook_loginview_text_size"
-        android:textStyle="bold"
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="36sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="50dip"
+            android:layout_centerHorizontal="true"/>
 
-        android:background="@drawable/com_facebook_button_blue"
-        android:drawableLeft="@drawable/com_facebook_inverse_icon"
-        android:drawablePadding="@dimen/com_facebook_likebutton_compound_drawable_padding"
-        android:paddingLeft="@dimen/com_facebook_loginview_padding_left"
-        android:paddingTop="@dimen/com_facebook_loginview_padding_top"
-        android:paddingRight="@dimen/com_facebook_loginview_padding_right"
-        android:paddingBottom="@dimen/com_facebook_loginview_padding_bottom"
-        android:onClick="onLoginClick"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="70dip"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dip"
-        android:src="@drawable/powered_by_yelp_white"/>
-</RelativeLayout>
+            android:text="@string/com_facebook_loginview_log_in_button"
+            android:textColor="@color/com_facebook_loginview_text_color"
+            android:textSize="@dimen/com_facebook_loginview_text_size"
+            android:textStyle="bold"
+
+            android:background="@drawable/com_facebook_button_blue"
+            android:drawableLeft="@drawable/com_facebook_inverse_icon"
+            android:drawablePadding="@dimen/com_facebook_likebutton_compound_drawable_padding"
+            android:paddingLeft="@dimen/com_facebook_loginview_padding_left"
+            android:paddingTop="@dimen/com_facebook_loginview_padding_top"
+            android:paddingRight="@dimen/com_facebook_loginview_padding_right"
+            android:paddingBottom="@dimen/com_facebook_loginview_padding_bottom"
+            android:onClick="onLoginClick"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dip"
+            android:src="@drawable/powered_by_yelp_white"/>
+    </RelativeLayout>
+
+</FrameLayout>
