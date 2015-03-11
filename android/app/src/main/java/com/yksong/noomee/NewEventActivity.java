@@ -276,16 +276,7 @@ public class NewEventActivity extends ActionBarActivity {
                 );
 
                 NewEventActivity.this.finish();
-//                ParseAPI.getMyAndFriendsEvents(
-//                        ParseUser.getCurrentUser(),
-//                        new APICallback<List<ParseObject>>() {
-//                            @Override
-//                            public void run(List<ParseObject> parseObj) {
-//                                // TODO parseObj
-//                            }
-//                        },
-//                        20
-//                );
+
                 return true;
             }
         }

@@ -8,14 +8,19 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
+import com.yksong.noomee.model.EatingEvent;
 import com.yksong.noomee.model.Restaurant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
+import bolts.Continuation;
+import bolts.Task;
 
 public class ParseAPI {
     private static String className = "ParseAPI";
@@ -162,7 +167,8 @@ public class ParseAPI {
     }
 
     public static void getMyAndFriendsEvents(final ParseObject user,
-                                             final APICallback<List<ParseObject>> callback,
+                                             final APICallback<List<EatingEvent>> callback,
+                                             final int skip,
                                              final int limit) {
         FacebookAPI.getMyFriends(new APICallback<List<ParseObject>>() {
             @Override
@@ -171,21 +177,25 @@ public class ParseAPI {
                 parseObjects.add(user);
                 activityQuery.whereContainedIn("user", parseObjects);
                 ParseQuery<ParseObject> eventQuery = ParseQuery.getQuery("Event");
-                eventQuery.whereMatchesKeyInQuery("objectId", "eventId", activityQuery);
-                eventQuery.orderByDescending("scheduledAt");
-                eventQuery.setLimit(limit);
                 eventQuery.include("users");
-                eventQuery.findInBackground(new FindCallback<ParseObject>() {
+                eventQuery.whereMatchesKeyInQuery("objectId", "eventId", activityQuery);
+                eventQuery.orderByDescending("createdAt");
+                eventQuery.setSkip(skip);
+                eventQuery.setLimit(limit);
+                eventQuery.findInBackground()
+                        .onSuccessTask(new Continuation<List<ParseObject>, Task<List<EatingEvent>>>() {
+                            @Override
+                            public Task<List<EatingEvent>> then(Task<List<ParseObject>> task)
+                                    throws Exception {
+                                return Task.forResult(Hydrator.hydrateEventFriends(task.getResult()));
+                            }
+                        }).onSuccess(new Continuation<List<EatingEvent>, Void>() {
                     @Override
-                    public void done(List<ParseObject> parseObjects, ParseException e) {
-                        if (e == null) {
-                            callback.run(parseObjects);
-                        } else {
-                            Log.e(className, "Error querying activity!, ", e);
-                            callback.run(new ArrayList<ParseObject>());
-                        }
+                    public Void then(Task<List<EatingEvent>> task) throws Exception {
+                        callback.run(task.getResult());
+                        return null;
                     }
-                });
+                }, Task.UI_THREAD_EXECUTOR);
             }
         });
     }
