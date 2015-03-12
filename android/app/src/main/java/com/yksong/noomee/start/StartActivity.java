@@ -54,9 +54,7 @@ public class StartActivity extends FragmentActivity {
                 if (user == null) {
                     Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
                 } else {
-                    if (user.isNew() || user.get(FB_ID) == null || user.get(FIRST_NAME) == null || user.get(LAST_NAME) == null) {
-                        getFacebookUserInfoInBackground();
-                    }
+                    getFacebookUserInfoInBackground();
                     Log.d(TAG, "User logged in through Facebook!");
                     startMainActivity();
                 }
@@ -70,9 +68,15 @@ public class StartActivity extends FragmentActivity {
             public void onCompleted(GraphUser user, Response response) {
                 if (user != null) {
                     ParseUser parseUser = ParseUser.getCurrentUser();
-                    parseUser.put(FB_ID, user.getId());
-                    parseUser.put(FIRST_NAME, user.getFirstName());
-                    parseUser.put(LAST_NAME, user.getLastName());
+                    if (!user.getId().equals(parseUser.get(FB_ID))) {
+                        parseUser.put(FB_ID, user.getId());
+                    }
+                    if (!user.getFirstName().equals(parseUser.get(FIRST_NAME))) {
+                        parseUser.put(FIRST_NAME, user.getFirstName());
+                    }
+                    if (!user.getLastName().equals(parseUser.get(LAST_NAME))) {
+                        parseUser.put(LAST_NAME, user.getLastName());
+                    }
                     parseUser.saveInBackground();
                 }
             }
