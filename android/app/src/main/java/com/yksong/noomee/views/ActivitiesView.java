@@ -212,7 +212,7 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
 //            contactViewHolder.mEventInfo.setText(TextUtils.join(", ", event.users) +
 //                    " going to eat at " + event.location + " at "
 //                o    + mSimpleDateFormat.format(event.time));
-            contactViewHolder.mEventInfo.setText("Location: "+event.location+"\n\nTime: "+mSimpleDateFormat.format(event.time)+"\n");
+            contactViewHolder.mEventInfo.setText(event.location+"\n\n"+mSimpleDateFormat.format(event.time)+"\n");
 
             contactViewHolder.mProfilePicture.setProfileId(event.users.get(0).mId);
             contactViewHolder.mUserName.setText(event.users.get(0).mName);
@@ -233,27 +233,32 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
                 }
             }
 
+            final List<FacebookUser> list = event.users;
             contactViewHolder.mButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if(contactViewHolder.mButton.getText().toString().compareTo("Cancel")==0){
-                    ParseAPI.removeEvent(ParseUser.getCurrentUser(), event.eventId);
-                    contactViewHolder.remove();
-                } else {
-                    List<FacebookUser> list = event.users;
-                    if (!contactViewHolder.mIsJoin) {
-
-                        ParseAPI.joinEvent(ParseUser.getCurrentUser(), event.eventId);
-                        contactViewHolder.mIsJoin = true;
-                        contactViewHolder.mButton.setText("Unjoin");
-                        contactViewHolder.mListPeople.setText("You and "+(list.size())+" others are going.");
+                public void onClick(View v) {
+                    if(contactViewHolder.mButton.getText().toString().compareTo("Cancel")==0){
+                        ParseAPI.removeEvent(ParseUser.getCurrentUser(), event.eventId);
+                        contactViewHolder.remove();
                     } else {
-                        ParseAPI.leaveEvent(ParseUser.getCurrentUser(), event.eventId);
-                        contactViewHolder.mIsJoin = false;
-                        contactViewHolder.mButton.setText("Join");
-                        contactViewHolder.mListPeople.setText(event.users.get(0).mName+" and "+(list.size()-1)+" others are going.");
+                        ParseUser curUser = ParseUser.getCurrentUser();
+                        String name = curUser.getString("firstName") + " " + curUser.getString("lastName");
+                        String curId = curUser.getString("fbId");
+                        if (!contactViewHolder.mIsJoin) {
+
+                            list.add(new FacebookUser(curId, name));
+                            ParseAPI.joinEvent(ParseUser.getCurrentUser(), event.eventId);
+                            contactViewHolder.mIsJoin = true;
+                            contactViewHolder.mButton.setText("Unjoin");
+                            contactViewHolder.mListPeople.setText("You and " + (list.size()-1)+" others are going.");
+                        } else {
+                            list.remove(new FacebookUser(curId,name));
+                            ParseAPI.leaveEvent(ParseUser.getCurrentUser(), event.eventId);
+                            contactViewHolder.mIsJoin = false;
+                            contactViewHolder.mButton.setText("Join");
+                            contactViewHolder.mListPeople.setText(event.users.get(0).mName+" and "+(list.size()-1)+" others are going.");
+                        }
                     }
                 }
-            }
             });
 
             String mListPeople = "";
@@ -267,7 +272,7 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
                 @Override
                 public void onClick(View v) {
                     String text = "";
-                    for(FacebookUser user : event.users){
+                    for(FacebookUser user : list){
                         text += "    "+user.mName+"\n";
                     }
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
