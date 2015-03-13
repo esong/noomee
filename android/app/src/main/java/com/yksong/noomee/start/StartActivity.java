@@ -68,16 +68,22 @@ public class StartActivity extends FragmentActivity {
             public void onCompleted(GraphUser user, Response response) {
                 if (user != null) {
                     ParseUser parseUser = ParseUser.getCurrentUser();
+                    boolean updated = false;
                     if (!user.getId().equals(parseUser.get(FB_ID))) {
                         parseUser.put(FB_ID, user.getId());
+                        updated = true;
                     }
                     if (!user.getFirstName().equals(parseUser.get(FIRST_NAME))) {
                         parseUser.put(FIRST_NAME, user.getFirstName());
+                        updated = true;
                     }
                     if (!user.getLastName().equals(parseUser.get(LAST_NAME))) {
                         parseUser.put(LAST_NAME, user.getLastName());
+                        updated = true;
                     }
-                    parseUser.saveInBackground();
+                    if (updated) {
+                        parseUser.saveInBackground();
+                    }
                 }
             }
         }).executeAsync();
