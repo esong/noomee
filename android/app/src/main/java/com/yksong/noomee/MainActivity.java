@@ -3,6 +3,7 @@ package com.yksong.noomee;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
@@ -101,6 +102,11 @@ public class MainActivity extends ActionBarActivity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
+
+            if (BuildConfig.DEBUG) {
+                menu.add(0, R.id.action_debug, 0, R.string.action_debug);
+            }
+
             restoreActionBar();
             return true;
         }
@@ -128,6 +134,10 @@ public class MainActivity extends ActionBarActivity
                 startActivity(new Intent(this, StartActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
+                return true;
+            }
+            case R.id.action_debug: {
+                startActivity(new Intent(this, DebugPreferenceActivity.class));
                 return true;
             }
             default: {

@@ -1,5 +1,11 @@
 package com.yksong.noomee.network;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.yksong.noomee.BuildConfig;
+import com.yksong.noomee.R;
 import com.yksong.noomee.util.NoomeeAPI;
 
 import retrofit.RestAdapter;
@@ -10,17 +16,21 @@ import retrofit.RestAdapter;
 public class NoomeeClient {
     private static NoomeeAPI sAPI;
 
-    static {
-        setUpApi();
-    }
-
     public static NoomeeAPI getApi() {
         return sAPI;
     }
 
-    private static void setUpApi() {
+    public static void initialize(Context context) {
+        String host = HttpConfig.NOOMEE_HOST;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (BuildConfig.DEBUG && preferences.getBoolean(
+                context.getResources().getString(R.string.pref_enable_local_server), false)) {
+            host = HttpConfig.NOOMEE_LOCAL_HOST;
+        }
+
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(HttpConfig.NOOMEE_PROTOCOL + HttpConfig.NOOMEE_HOST)
+                .setEndpoint(HttpConfig.NOOMEE_PROTOCOL + host)
                 .build();
 
         sAPI = restAdapter.create(NoomeeAPI.class);
