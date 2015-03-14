@@ -1,34 +1,14 @@
 package com.yksong.noomee.presenter;
 
-import android.app.Dialog;
 import android.location.Location;
-import android.view.View;
-import android.widget.TextView;
 
-import com.squareup.okhttp.Request;
-
-import com.yksong.noomee.R;
 import com.yksong.noomee.model.ChiTag;
 import com.yksong.noomee.model.Restaurant;
-import com.yksong.noomee.network.HttpCallBack;
-import com.yksong.noomee.network.HttpClient;
-import com.yksong.noomee.network.HttpConfig;
 import com.yksong.noomee.network.NoomeeClient;
-import com.yksong.noomee.network.RequestBuilder;
 import com.yksong.noomee.util.GeoProvider;
 import com.yksong.noomee.util.NoomeeAPI;
-import com.yksong.noomee.views.ChiTagView;
 import com.yksong.noomee.views.DeciderView;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**

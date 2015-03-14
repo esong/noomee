@@ -52,6 +52,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
     private ChiTagView mChiTagView;
     private AlertDialog mLoadingDialog;
     private LoadingView mLoadingView;
+    private View mRestaurantCardView;
     private boolean mRequesting;
 
     private GeoProvider mGeoProvider = GeoProvider.getInstance();
@@ -87,6 +88,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
 
         mLoadingView = (LoadingView) findViewById(R.id.restaurant_container);
         mChiTagView = (ChiTagView) findViewById(R.id.chi_tag_view);
+        mRestaurantCardView = findViewById(R.id.restaurant_card_view);
 
         findViewById(R.id.cuisine_tab).setOnClickListener(new OnClickListener() {
             @Override
@@ -175,6 +177,9 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
     }
 
     private void requestRestaurant() {
+        if (mRestaurantCardView.getVisibility() == GONE ) {
+            mRestaurantCardView.setVisibility(VISIBLE);
+        }
         mRequesting = true;
         mLoadingView.load();
         mPresenter.getRestaurant();
@@ -185,7 +190,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
         mLoadingView.finish();
 
         final ViewGroup restaurantView = (ViewGroup)
-                mLoadingView.findViewById(R.id.restaurant_main_view);
+                mLoadingView.findViewById(R.id.restaurant_view);
 
         if (restaurant.image_url != null) {
             Picasso.with(getContext())
