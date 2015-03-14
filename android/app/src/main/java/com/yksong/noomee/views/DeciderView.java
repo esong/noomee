@@ -185,7 +185,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
         mLoadingView.finish();
 
         final ViewGroup restaurantView = (ViewGroup)
-                mLoadingView.findViewById(R.id.restaurant_view);
+                mLoadingView.findViewById(R.id.restaurant_main_view);
 
         if (restaurant.image_url != null) {
             Picasso.with(getContext())
