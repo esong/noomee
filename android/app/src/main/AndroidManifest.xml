@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
     <application
         android:name=".app.NoomeeApp"
         android:allowBackup="true"
@@ -36,9 +40,5 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAmE1WTHtUnKh6D1W-wYjcu_WDFPfnPpnA"/>
-        <uses-feature
-            android:glEsVersion="0x00020000"
-            android:required="true"/>
     </application>
-
 </manifest>

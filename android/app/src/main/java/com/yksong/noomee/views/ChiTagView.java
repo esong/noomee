@@ -50,6 +50,7 @@ public class ChiTagView extends ViewGroup {
         mRowPadding = getResources().getDimension(R.dimen.chi_tag_row_padding);
 
         mInflater = LayoutInflater.from(context);
+        a.recycle();
     }
 
     @Override

@@ -28,10 +28,19 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            storeFile file(System.getProperty("user.home") + "/.android/release.keystore")
+            storePassword System.getenv("KSTOREPWD")
+            keyAlias "release"
+            keyPassword System.getenv("KEYPWD")
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     packagingOptions {

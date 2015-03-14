@@ -116,7 +116,8 @@ public class NewEventActivity extends ActionBarActivity {
                     ArrayAdapter<Restaurant> adapter = new ArrayAdapter<> (NewEventActivity.this,
                             android.R.layout.simple_list_item_1, restaurants);
                     restaurantAutoComplete.setAdapter(adapter);
-                    restaurantAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    restaurantAutoComplete.setOnItemClickListener(
+                            new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent,
                                                 View view, int position, long id) {

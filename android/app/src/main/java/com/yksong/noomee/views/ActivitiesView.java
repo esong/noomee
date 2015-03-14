@@ -192,11 +192,9 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
 
             Picasso.with(getContext()).load(R.drawable.empty_plate).into(contactViewHolder.mRestaurantPicture);
             if (event.restaurantId != null) {
-                System.out.println(event.location + " " + event.restaurantId);
                 mNoomeeAPI.business(event.restaurantId, new Callback<Restaurant>() {
                     @Override
                     public void success(Restaurant restaurant, Response response) {
-                        System.out.println(restaurant.image_url);
                         Picasso.with(getContext())
                                 .load(YelpUtil.switchToLsImageUrl(restaurant.image_url))
                                 .into(contactViewHolder.mRestaurantPicture);
