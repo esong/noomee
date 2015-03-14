@@ -5,68 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:divider="?android:listDivider"
-        android:showDividers="middle"
-        android:layout_marginTop="5dp">
+        android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/cuisine_tab"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true">
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/chef_hat"
-                android:contentDescription="@string/decide_cuisines" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="218dp"
+                android:name="com.google.android.gms.maps.MapFragment"/>
+
+            <com.yksong.noomee.widget.LoadingView
+                android:id="@+id/restaurant_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp">
+                <include
+                    android:id="@+id/restaurant_view"
+                    layout="@layout/restaurant_card_view" />
+            </com.yksong.noomee.widget.LoadingView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="22dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@id/icon"
-                    android:text="@string/decide_cuisines"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="3dp"/>
-                <com.yksong.noomee.views.ChiTagView
-                    android:id="@+id/chi_tag_view"
+                android:orientation="vertical"
+                android:divider="?android:listDivider"
+                android:showDividers="middle"
+                android:layout_marginTop="5dp">
+                <LinearLayout
+                    android:id="@+id/cuisine_tab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    noomee:selected_only="true"/>
+                    android:paddingLeft="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true">
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/chef_hat"
+                        android:contentDescription="@string/decide_cuisines" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="22dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/icon"
+                            android:text="@string/decide_cuisines"
+                            android:textSize="18sp"
+                            android:layout_marginBottom="3dp"/>
+                        <com.yksong.noomee.views.ChiTagView
+                            android:id="@+id/chi_tag_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            noomee:selected_only="true"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:padding="16dp">-->
-            <!--<ImageView-->
-                <!--android:layout_width="24dp"-->
-                <!--android:layout_height="24dp"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:src="@drawable/triangle_right"-->
-                <!--android:contentDescription="@string/decide_more_options" />-->
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="22dp"-->
-                <!--android:text="@string/decide_more_options"-->
-                <!--android:textSize="20sp"/>-->
-        <!--</LinearLayout>-->
-    </LinearLayout>
+    </ScrollView>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"

@@ -1,12 +1,12 @@
 package com.yksong.noomee.util;
 
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class GeoProvider {
     private static final GeoProvider sInstance = new GeoProvider();
-    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 2;
-    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 60000;
+    private static final long MINIMUM_DISTANCE_CHANGE_FOR_UPDATES = 20;
+    private static final long MINIMUM_TIME_BETWEEN_UPDATES = 5000;
 
     private LocationManager mLocationManager;
 
@@ -38,12 +38,14 @@ public class GeoProvider {
 
         if (providers.contains(LocationManager.GPS_PROVIDER)) {
             mLocationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, 5000, 20, listener);
+                    LocationManager.GPS_PROVIDER, MINIMUM_TIME_BETWEEN_UPDATES,
+                    MINIMUM_DISTANCE_CHANGE_FOR_UPDATES, listener);
         }
 
         if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
             mLocationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER, 5000, 20, listener);
+                    LocationManager.NETWORK_PROVIDER, MINIMUM_TIME_BETWEEN_UPDATES,
+                    MINIMUM_DISTANCE_CHANGE_FOR_UPDATES, listener);
         }
     }
 
@@ -67,6 +69,16 @@ public class GeoProvider {
         else {
             return locationNet;
         }
+    }
+
+    public LatLng getLatLng() {
+        Location location = getLocation();
+
+        if (location != null) {
+            return new LatLng(location.getLatitude(), location.getLongitude());
+        }
+
+        return null;
     }
 
     public boolean hasUpdate(Location location) {

@@ -5,8 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.hardware.SensorManager;
+import android.location.Location;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,14 +19,30 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.squareup.seismic.ShakeDetector;
+import com.yksong.noomee.NewEventActivity;
 import com.yksong.noomee.R;
 import com.yksong.noomee.model.ChiTag;
 import com.yksong.noomee.model.Restaurant;
 import com.yksong.noomee.presenter.DeciderPresenter;
+import com.yksong.noomee.util.GeoProvider;
+import com.yksong.noomee.widget.LoadingView;
 
 import java.net.URI;
+import java.util.Locale;
 
 /**
  * Created by esong on 2015-01-01.
@@ -30,9 +50,13 @@ import java.net.URI;
 public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
     private DeciderPresenter mPresenter = new DeciderPresenter();
     private ChiTagView mChiTagView;
-    private AlertDialog mDialog;
     private AlertDialog mLoadingDialog;
+    private LoadingView mLoadingView;
     private boolean mRequesting;
+
+    private GeoProvider mGeoProvider = GeoProvider.getInstance();
+    private GoogleMap mMap;
+    private Marker mCurrentMarker;
 
     public DeciderView(Context context) {
         this(context, null);
@@ -61,6 +85,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
     public void onFinishInflate() {
         mPresenter.setView(this);
 
+        mLoadingView = (LoadingView) findViewById(R.id.restaurant_container);
         mChiTagView = (ChiTagView) findViewById(R.id.chi_tag_view);
 
         findViewById(R.id.cuisine_tab).setOnClickListener(new OnClickListener() {
@@ -78,12 +103,21 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
                 requestRestaurant();
             }
         });
-    }
 
-    private void requestRestaurant() {
-        mRequesting = true;
-        mLoadingDialog.show();
-        mPresenter.getRestaurant();
+        ((MapFragment)((FragmentActivity)getContext())
+                .getFragmentManager().findFragmentById(R.id.map))
+                .getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        mMap = googleMap;
+                        mMap.setMyLocationEnabled(true);
+
+                        LatLng latLng = mGeoProvider.getLatLng();
+                        if (latLng != null) {
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                        }
+                    }
+                });
     }
 
     public ChiTag[] getSelectedTags(){
@@ -114,12 +148,18 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
             .show();
     }
 
+    private void requestRestaurant() {
+        mRequesting = true;
+        mLoadingView.load();
+        mPresenter.getRestaurant();
+    }
+
     public void showRestaurant(final Restaurant restaurant) {
         mRequesting = false;
-        mLoadingDialog.dismiss();
+        mLoadingView.finish();
 
-        final ViewGroup restaurantView = (ViewGroup) LayoutInflater.from(getContext())
-                .inflate(R.layout.restaurant_card_view, null);
+        final ViewGroup restaurantView = (ViewGroup)
+                mLoadingView.findViewById(R.id.restaurant_view);
 
         if (restaurant.image_url != null) {
             Picasso.with(getContext())
@@ -142,31 +182,37 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
             }
         });
 
-         new AlertDialog.Builder(getContext())
-                .setView(restaurantView)
-                .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+        restaurantView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), NewEventActivity.class);
 
-                            }
-                        })
-                .setNegativeButton(android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                intent.putExtra("restaurantName", restaurant.name);
+                intent.putExtra("restaurantId", restaurant.id);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
-                            }
-                        })
-                .setNeutralButton("RETRY",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                requestRestaurant();
-                            }
-                        })
-                .show();
+                getContext().startActivity(intent);
+            }
+        });
+
+        if (mMap != null) {
+            LatLng latLng = new LatLng(restaurant.location.coordinate.latitude,
+                    restaurant.location.coordinate.longitude);
+
+            if (mCurrentMarker != null) {
+                mCurrentMarker.remove();
+            }
+
+            mCurrentMarker = mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(restaurant.name));
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                    new LatLngBounds.Builder()
+                            .include(latLng)
+                            .include(mGeoProvider.getLatLng())
+                            .build(), 80));
+        }
     }
 
     public void showLocationPromote() {

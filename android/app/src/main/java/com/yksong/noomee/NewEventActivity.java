@@ -65,6 +65,9 @@ public class NewEventActivity extends ActionBarActivity {
     private NoomeeAPI mNoomeeAPI = NoomeeClient.getApi();
     private GeoProvider mGeoProvider = GeoProvider.getInstance();
 
+    public static final String INTENT_RESTAURANT_NAME = "restaurantName";
+    public static final String INTENT_RESTAURANT_ID = "restaurantId";
+
     /**
      * Used to store the last screen title. For use in
      */
@@ -127,6 +130,17 @@ public class NewEventActivity extends ActionBarActivity {
 
                 }
             });
+        }
+
+        Intent intent = getIntent();
+        String restaurantId = intent.getStringExtra(INTENT_RESTAURANT_ID);
+        String restaurantName = intent.getStringExtra(INTENT_RESTAURANT_NAME);
+
+        if (restaurantId != null) {
+            restaurantAutoComplete.setText(restaurantName);
+            mSelectedRestaurant = new Restaurant();
+            mSelectedRestaurant.name = restaurantName;
+            mSelectedRestaurant.id = restaurantId;
         }
 
         addListeners();
