@@ -54,6 +54,7 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
     private int mPreviousTotal = 0;
     private boolean mLoading = true;
     private static int sVisibleThreshold = 20;
+
     private NoomeeAPI mNoomeeAPI = NoomeeClient.getApi();
 
     public ActivitiesView(Context context) {
@@ -98,11 +99,9 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
                 }
                 if (!mLoading && (totalItemCount - visibleItemCount)
                         <= (firstVisibleItem + sVisibleThreshold)/2) {
-                    // End has been reached
-                    System.out.println("End");
 
                     getEventListAsync(mPreviousTotal, sVisibleThreshold);
-                    // Do something
+
                     mLoading = true;
                 }
             }
@@ -162,7 +161,7 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
     public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ContactViewHolder> {
 
         private List<EatingEvent> eventList;
-        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MM-dd'-'HH:mm");
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat("MMM dd' at 'HH:mm");
 
         public EventAdapter(List<EatingEvent> eventList) {
             this.eventList = eventList;
@@ -186,33 +185,42 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
             notifyItemRangeInserted(eventList.size(), newList.size());
         }
 
+        private void loadPicture(String url, ImageView view) {
+            Picasso.with(getContext())
+                    .load(YelpUtil.switchToLsImageUrl(url))
+                    .into(view);
+        }
+
         @Override
         public void onBindViewHolder(final ContactViewHolder contactViewHolder, int i) {
             final EatingEvent event = eventList.get(i);
 
-            Picasso.with(getContext()).load(R.drawable.empty_plate).into(contactViewHolder.mRestaurantPicture);
+            Picasso.with(getContext()).load(R.drawable.empty_plate)
+                    .into(contactViewHolder.mRestaurantPicture);
+
             if (event.restaurantId != null) {
-                System.out.println(event.location + " " + event.restaurantId);
-                mNoomeeAPI.business(event.restaurantId, new Callback<Restaurant>() {
-                    @Override
-                    public void success(Restaurant restaurant, Response response) {
-                        System.out.println(restaurant.image_url);
-                        Picasso.with(getContext())
-                                .load(YelpUtil.switchToLsImageUrl(restaurant.image_url))
-                                .into(contactViewHolder.mRestaurantPicture);
-                    }
+                if (event.restaurant == null) {
+                    mNoomeeAPI.business(event.restaurantId, new Callback<Restaurant>() {
+                        @Override
+                        public void success(Restaurant restaurant, Response response) {
+                            event.restaurant = restaurant;
+                            loadPicture(event.restaurant.image_url,
+                                    contactViewHolder.mRestaurantPicture);
+                        }
 
-                    @Override
-                    public void failure(RetrofitError error) {
+                        @Override
+                        public void failure(RetrofitError error) {
 
-                    }
-                });
+                        }
+                    });
+                } else {
+                    loadPicture(event.restaurant.image_url,
+                            contactViewHolder.mRestaurantPicture);
+                }
             }
 
-//            contactViewHolder.mEventInfo.setText(TextUtils.join(", ", event.users) +
-//                    " going to eat at " + event.location + " at "
-//                o    + mSimpleDateFormat.format(event.time));
-            contactViewHolder.mEventInfo.setText("Location: "+event.location+"\n\nTime: "+mSimpleDateFormat.format(event.time)+"\n");
+            contactViewHolder.mEventInfo.setText(event.location);
+            contactViewHolder.mEventDate.setText(mSimpleDateFormat.format(event.time) + "\n");
 
             contactViewHolder.mProfilePicture.setProfileId(event.users.get(0).mId);
             contactViewHolder.mUserName.setText(event.users.get(0).mName);
@@ -233,41 +241,50 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
                 }
             }
 
+            final List<FacebookUser> list = event.users;
             contactViewHolder.mButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if(contactViewHolder.mButton.getText().toString().compareTo("Cancel")==0){
-                    ParseAPI.removeEvent(ParseUser.getCurrentUser(), event.eventId);
-                    contactViewHolder.remove();
-                } else {
-                    List<FacebookUser> list = event.users;
-                    if (!contactViewHolder.mIsJoin) {
-
-                        ParseAPI.joinEvent(ParseUser.getCurrentUser(), event.eventId);
-                        contactViewHolder.mIsJoin = true;
-                        contactViewHolder.mButton.setText("Unjoin");
-                        contactViewHolder.mListPeople.setText("You and "+(list.size())+" others are going.");
+                public void onClick(View v) {
+                    if(contactViewHolder.mButton.getText().toString().compareTo("Cancel")==0){
+                        ParseAPI.removeEvent(ParseUser.getCurrentUser(), event.eventId);
+                        contactViewHolder.remove();
                     } else {
-                        ParseAPI.leaveEvent(ParseUser.getCurrentUser(), event.eventId);
-                        contactViewHolder.mIsJoin = false;
-                        contactViewHolder.mButton.setText("Join");
-                        contactViewHolder.mListPeople.setText(event.users.get(0).mName+" and "+(list.size()-1)+" others are going.");
+                        ParseUser curUser = ParseUser.getCurrentUser();
+                        String name = curUser.getString("firstName") + " "
+                                + curUser.getString("lastName");
+                        String curId = curUser.getString("fbId");
+                        if (!contactViewHolder.mIsJoin) {
+
+                            list.add(new FacebookUser(curId, name));
+                            ParseAPI.joinEvent(ParseUser.getCurrentUser(), event.eventId);
+                            contactViewHolder.mIsJoin = true;
+                            contactViewHolder.mButton.setText("Unjoin");
+                            contactViewHolder.mListPeople.setText(
+                                    "You and " + (list.size()-1)+" others are going.");
+                        } else {
+                            list.remove(new FacebookUser(curId,name));
+                            ParseAPI.leaveEvent(ParseUser.getCurrentUser(), event.eventId);
+                            contactViewHolder.mIsJoin = false;
+                            contactViewHolder.mButton.setText("Join");
+                            contactViewHolder.mListPeople.setText(event.users.get(0).mName +
+                                    " and "+(list.size()-1)+" others are going.");
+                        }
                     }
                 }
-            }
             });
 
             String mListPeople = "";
             if( contactViewHolder.mIsJoin ){
-                mListPeople = "You and "+(event.users.size()-1)+" others are going.";
+                mListPeople = "You and " + (event.users.size()-1) + " others are going.";
             } else{
-                mListPeople = event.users.get(0).mName+" and "+(event.users.size()-1)+" others are going.";
+                mListPeople = event.users.get(0).mName+" and "
+                        + (event.users.size()-1) + " others are going.";
             }
             contactViewHolder.mListPeople.setText(mListPeople);
             contactViewHolder.mListPeople.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String text = "";
-                    for(FacebookUser user : event.users){
+                    for(FacebookUser user : list){
                         text += "    "+user.mName+"\n";
                     }
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -287,18 +304,19 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
 
         public class ContactViewHolder extends RecyclerView.ViewHolder{
             private TextView mEventInfo;
+            private TextView mEventDate;
             private ProfilePictureView mProfilePicture;
             private ImageView mRestaurantPicture;
             private TextView mUserName;
             private TextView mTimeText;
             private TextView mListPeople;
-            private View mView;
             private Button mButton;
             private boolean mIsJoin;
 
             public ContactViewHolder(View v) {
                 super(v);
                 mEventInfo = (TextView) v.findViewById(R.id.txtEvent);
+                mEventDate = (TextView) v.findViewById(R.id.event_time_text);
                 mProfilePicture = (ProfilePictureView) v.findViewById(R.id.profile_picture);
                 mRestaurantPicture = (ImageView) v.findViewById(R.id.restaurant_picture);
                 mUserName = (TextView) v.findViewById(R.id.user_name);
@@ -306,7 +324,6 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
                 mListPeople = (TextView) v.findViewById(R.id.people_list);
                 mButton = (Button) v.findViewById(R.id.going_button);
                 mIsJoin = false;
-                mView = v;
             }
 
             public void remove() {

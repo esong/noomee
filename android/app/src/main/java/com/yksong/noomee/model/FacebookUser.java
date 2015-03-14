@@ -21,4 +21,14 @@ public class FacebookUser implements Comparable<FacebookUser> {
     public int compareTo(FacebookUser another) {
         return mId.compareTo(another.mId);
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if( another instanceof FacebookUser) {
+            return mId.equals(((FacebookUser)another).mId) &&
+                    mName.equals(((FacebookUser)another).mName);
+        }
+
+        return false;
+    }
 }
