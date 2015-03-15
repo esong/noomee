@@ -2,23 +2,18 @@ package com.yksong.noomee;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.Time;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -26,24 +21,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.facebook.Session;
-import com.parse.ParseFacebookUtils;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.yksong.noomee.model.Restaurant;
 import com.yksong.noomee.network.NoomeeClient;
-import com.yksong.noomee.start.StartActivity;
-import com.yksong.noomee.util.APICallback;
 import com.yksong.noomee.util.GeoProvider;
 import com.yksong.noomee.util.NoomeeAPI;
 import com.yksong.noomee.util.ParseAPI;
-
-import java.util.Calendar;
-import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

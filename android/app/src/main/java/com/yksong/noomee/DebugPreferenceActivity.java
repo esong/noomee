@@ -2,7 +2,6 @@ package com.yksong.noomee;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
 /**

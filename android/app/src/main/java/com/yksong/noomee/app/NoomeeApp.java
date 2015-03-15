@@ -7,7 +7,6 @@ import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.yksong.noomee.BuildConfig;
 import com.yksong.noomee.R;
-import com.yksong.noomee.network.HttpClient;
 import com.yksong.noomee.network.NoomeeClient;
 import com.yksong.noomee.util.GeoProvider;
 

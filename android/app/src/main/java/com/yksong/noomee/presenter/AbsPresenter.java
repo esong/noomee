@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by esong on 2015-01-11.

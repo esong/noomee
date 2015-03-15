@@ -1,8 +1,5 @@
 package com.yksong.noomee.model;
 
-import android.view.View;
-
-import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.List;
 

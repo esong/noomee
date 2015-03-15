@@ -2,11 +2,10 @@ package com.yksong.noomee.views;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -18,17 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.widget.ProfilePictureView;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.squareup.picasso.Picasso;
-import com.yksong.noomee.R;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import android.content.Intent;
-
 import com.yksong.noomee.NewEventActivity;
+import com.yksong.noomee.R;
 import com.yksong.noomee.model.EatingEvent;
 import com.yksong.noomee.model.FacebookUser;
 import com.yksong.noomee.model.Restaurant;
@@ -37,6 +29,10 @@ import com.yksong.noomee.presenter.ActivitiesPresenter;
 import com.yksong.noomee.util.NoomeeAPI;
 import com.yksong.noomee.util.ParseAPI;
 import com.yksong.noomee.util.YelpUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -132,6 +128,7 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
 
     public void createList(List<EatingEvent> result, int skip){
         mSwipeRefreshLayout.setRefreshing(false);
+        mStarted = true;
 
         EventAdapter eventAdapter;
         // if reload the list
@@ -334,5 +331,4 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
         }
     }
 }
-
 

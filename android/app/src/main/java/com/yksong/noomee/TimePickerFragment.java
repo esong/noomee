@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.TimePicker;
-
-import java.util.Calendar;
 
 /**
  * Created by Ed on 16/01/2015.
