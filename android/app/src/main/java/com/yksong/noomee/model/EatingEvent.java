@@ -1,5 +1,8 @@
 package com.yksong.noomee.model;
 
+import android.view.View;
+
+import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +16,7 @@ public class EatingEvent implements Comparable<EatingEvent> {
     public List<FacebookUser> users;
     public String eventId;
     public String restaurantId;
+    public Restaurant restaurant;
 
     @Override
     public int compareTo(EatingEvent another) {
