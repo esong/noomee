@@ -5,11 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.SensorManager;
-import android.location.Location;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -19,14 +16,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -40,9 +33,6 @@ import com.yksong.noomee.model.Restaurant;
 import com.yksong.noomee.presenter.DeciderPresenter;
 import com.yksong.noomee.util.GeoProvider;
 import com.yksong.noomee.widget.LoadingView;
-
-import java.net.URI;
-import java.util.Locale;
 
 /**
  * Created by esong on 2015-01-01.

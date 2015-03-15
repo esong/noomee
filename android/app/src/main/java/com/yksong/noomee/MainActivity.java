@@ -1,28 +1,24 @@
 package com.yksong.noomee;
 
-import android.app.ActivityManager;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.os.Build;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
 
-import com.yksong.library.ui.PagerSlidingTabStrip;
 import com.facebook.Session;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
-
+import com.yksong.library.ui.PagerSlidingTabStrip;
 import com.yksong.noomee.start.StartActivity;
 
 import java.util.Locale;
