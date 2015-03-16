@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.yksong.noomee.BuildConfig;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -28,7 +29,12 @@ public abstract class AbsPresenter<T extends View> {
             mView.getHandler().post(new Runnable() {
                 @Override
                 public void run() {
-                    Crashlytics.logException(error.getCause());
+                    if (!BuildConfig.DEBUG) {
+                        Crashlytics.logException(error.getCause());
+                    } else {
+                        Toast.makeText(getView().getContext(), sError + error.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
