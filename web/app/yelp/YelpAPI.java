@@ -23,7 +23,7 @@ public class YelpAPI {
 
     private static final String API_HOST = "api.yelp.com";
     private static final int SEARCH_LIMIT = 10;
-    private static final int RADIUS_LIMIT = 1000;  // in meters
+    private static final int RADIUS_LIMIT = 2000;  // in meters
     private static final String SEARCH_PATH = "/v2/search";
     private static final String BUSINESS_PATH = "/v2/business";
 
@@ -72,7 +72,19 @@ public class YelpAPI {
         request.addQuerystringParameter("term", term);
         request.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
         request.addQuerystringParameter("radius_filter", String.valueOf(RADIUS_LIMIT));
-        return sendRequestAndGetResponse(request);
+        String responseFirst = sendRequestAndGetResponse(request);
+
+        OAuthRequest requestSecond = createOAuthRequest(SEARCH_PATH);
+        requestSecond.addQuerystringParameter("term", term);
+        requestSecond.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
+        requestSecond.addQuerystringParameter("radius_filter", String.valueOf(RADIUS_LIMIT));
+        requestSecond.addQuerystringParameter("offset", String.valueOf(20));
+        String responseSecond = sendRequestAndGetResponse(requestSecond);
+
+        int indexEnd = responseFirst.lastIndexOf("]");
+        int indexFirst = responseSecond.indexOf("[");
+        return responseFirst.substring(0, indexEnd) + "," + responseSecond.substring(indexFirst + 1);
+
     }
 
     /**
