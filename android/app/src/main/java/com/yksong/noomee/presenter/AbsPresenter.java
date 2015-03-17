@@ -26,17 +26,19 @@ public abstract class AbsPresenter<T extends View> {
 
     public abstract class PresenterCallBack<T> implements Callback<T> {
         public void failure(final RetrofitError error) {
-            mView.getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    if (!BuildConfig.DEBUG) {
-                        Crashlytics.logException(error.getCause());
-                    } else {
-                        Toast.makeText(getView().getContext(), sError + error.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
+            if (!BuildConfig.DEBUG) {
+                Crashlytics.logException(error.getCause());
+            } else {
+                if (mView != null) {
+                    mView.getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getView().getContext(), sError + error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
-            });
+            }
         }
     }
 }

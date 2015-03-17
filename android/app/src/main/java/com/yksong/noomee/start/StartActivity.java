@@ -14,11 +14,17 @@ import com.facebook.model.GraphUser;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 import com.yksong.noomee.MainActivity;
 import com.yksong.noomee.R;
+import com.yksong.noomee.model.Restaurant;
 
 import java.util.Arrays;
+import java.util.concurrent.Callable;
+
+import bolts.Continuation;
+import bolts.Task;
 
 /**
  * Created by esong on 2014-12-08.
@@ -39,6 +45,7 @@ public class StartActivity extends FragmentActivity {
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if ((currentUser != null) && ParseFacebookUtils.isLinked(currentUser)) {
+            updateUserInfoInBackground();
             startMainActivity();
         }
     }
@@ -53,7 +60,7 @@ public class StartActivity extends FragmentActivity {
                 if (user == null) {
                     Log.d(TAG, "Uh oh. The user cancelled the Facebook login.");
                 } else {
-                    getFacebookUserInfoInBackground();
+                    updateUserInfoInBackground();
                     Log.d(TAG, "User logged in through Facebook!");
                     startMainActivity();
                 }
@@ -61,31 +68,57 @@ public class StartActivity extends FragmentActivity {
         });
     }
 
-    private void getFacebookUserInfoInBackground() {
-        Request.newMeRequest(ParseFacebookUtils.getSession(), new Request.GraphUserCallback() {
+    private void updateUserInfoInBackground() {
+        Task.callInBackground(new Callable<Response>() {
+              @Override
+              public Response call() throws Exception {
+                  return Request.newMeRequest(ParseFacebookUtils.getSession(),
+                          new Request.GraphUserCallback() {
+                      @Override
+                      public void onCompleted(GraphUser user, Response response) {
+                          if (user != null) {
+                              ParseUser parseUser = ParseUser.getCurrentUser();
+                              try {
+                                  parseUser.fetch();
+                              } catch (ParseException e) {
+                                  e.printStackTrace();
+                              }
+
+                              boolean updated = false;
+                              if (!user.getId().equals(parseUser.get(FB_ID))) {
+                                  parseUser.put(FB_ID, user.getId());
+                                  updated = true;
+                              }
+                              if (!user.getFirstName().equals(parseUser.get(FIRST_NAME))) {
+                                  parseUser.put(FIRST_NAME, user.getFirstName());
+                                  updated = true;
+                              }
+                              if (!user.getLastName().equals(parseUser.get(LAST_NAME))) {
+                                  parseUser.put(LAST_NAME, user.getLastName());
+                                  updated = true;
+                              }
+                              if (updated) {
+                                  parseUser.saveInBackground();
+                              }
+                          }
+                      }
+                  }).executeAndWait();
+              }
+          }).continueWith(new Continuation<Response, Object>() {
             @Override
-            public void onCompleted(GraphUser user, Response response) {
-                if (user != null) {
-                    ParseUser parseUser = ParseUser.getCurrentUser();
-                    boolean updated = false;
-                    if (!user.getId().equals(parseUser.get(FB_ID))) {
-                        parseUser.put(FB_ID, user.getId());
-                        updated = true;
-                    }
-                    if (!user.getFirstName().equals(parseUser.get(FIRST_NAME))) {
-                        parseUser.put(FIRST_NAME, user.getFirstName());
-                        updated = true;
-                    }
-                    if (!user.getLastName().equals(parseUser.get(LAST_NAME))) {
-                        parseUser.put(LAST_NAME, user.getLastName());
-                        updated = true;
-                    }
-                    if (updated) {
-                        parseUser.saveInBackground();
-                    }
+            public Object then(Task<Response> task) throws Exception {
+                ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                ParseUser parseUser = ParseUser.getCurrentUser();
+                parseUser.fetchIfNeeded();
+
+                if (!parseUser.get(FB_ID).equals(installation.get(FB_ID))) {
+                    installation.put(FB_ID, parseUser.get(FB_ID));
+                    installation.saveInBackground();
                 }
+                return null;
             }
-        }).executeAsync();
+        });
+
     }
 
     private void startMainActivity() {

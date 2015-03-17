@@ -10,11 +10,13 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
 import com.squareup.picasso.Picasso;
+import com.yksong.noomee.NewEventActivity;
 import com.yksong.noomee.R;
 import com.yksong.noomee.model.Restaurant;
 import com.yksong.noomee.network.HttpConfig;
 import com.yksong.noomee.util.GeoProvider;
 import com.yksong.noomee.util.NoomeeAPI;
+import com.yksong.noomee.util.YelpUtil;
 
 import java.io.IOException;
 import java.util.Random;
@@ -61,8 +63,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                     NotificationCompat.BigPictureStyle bigPictureStyle =
                             new NotificationCompat.BigPictureStyle();
 
-                    restaurant.image_url = restaurant.image_url.substring(0,
-                            restaurant.image_url.lastIndexOf('/')+1).concat("348s.jpg");
+                    restaurant.image_url = YelpUtil.switchTo348ImageUrl(restaurant.image_url);
 
                     try {
                         bigPictureStyle.bigPicture(
@@ -73,18 +74,28 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                     bigPictureStyle.setSummaryText(contentText);
 
+                    Intent intent = new Intent(context, NewEventActivity.class);
+
+                    intent.putExtra("restaurantName", restaurant.name);
+                    intent.putExtra("restaurantId", restaurant.id);
+
                     PendingIntent yelpUrlIntent = PendingIntent.getActivity(context, 0,
                             new Intent(Intent.ACTION_VIEW, Uri.parse(restaurant.mobile_url)),
                             PendingIntent.FLAG_ONE_SHOT );
+                    PendingIntent postIntent = PendingIntent.getActivity(context, 0,
+                            intent, PendingIntent.FLAG_ONE_SHOT);
+
+                    String message = "It's " + intent.getStringExtra("Time") + "time !";
 
                     final NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(context)
                                     .setSmallIcon(R.drawable.ic_launcher)
                                     .setColor(context.getResources().getColor(R.color.colorPrimary))
-                                    .setContentTitle("It's lunch time!")
+                                    .setContentTitle(message)
                                     .setContentText(contentText)
                                     .setStyle(bigPictureStyle)
-                                    .addAction(R.drawable.ic_fork, "Details", yelpUrlIntent);
+                                    .addAction(R.drawable.ic_fork, "Details", yelpUrlIntent)
+                                    .addAction(R.drawable.ic_add_white_24dp, "Post", postIntent);
 
                     NotificationManager notificationManager = (NotificationManager)
                             context.getSystemService(Context.NOTIFICATION_SERVICE);

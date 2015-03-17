@@ -19,4 +19,14 @@ public class EatingEvent implements Comparable<EatingEvent> {
     public int compareTo(EatingEvent another) {
         return another.createdTime.compareTo(createdTime);
     }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof EatingEvent) {
+            return createdTime.equals( ((EatingEvent) another).createdTime)
+                    && users.equals(((EatingEvent) another).users);
+        }
+
+        return false;
+    }
 }
