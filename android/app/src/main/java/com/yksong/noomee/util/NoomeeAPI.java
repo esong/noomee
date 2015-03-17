@@ -16,6 +16,9 @@ public interface NoomeeAPI {
                           @Query("tags") String[] tags,
                           Callback<Restaurant> cb);
 
+    @GET("/random?term=restaurant")
+    Restaurant randomRestaurant(@Query("lati") double lati, @Query("longi")double longi);
+
     @GET("/categories?term=restaurant")
     void getTags(@Query("lati") double lati, @Query("longi") double longi,
                  Callback<ChiTag[]> cb);

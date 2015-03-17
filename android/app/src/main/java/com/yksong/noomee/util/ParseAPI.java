@@ -5,17 +5,25 @@ import android.util.Log;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.SendCallback;
 import com.yksong.noomee.model.EatingEvent;
 import com.yksong.noomee.model.Restaurant;
+import com.yksong.noomee.start.StartActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 
 import bolts.Continuation;
@@ -68,11 +76,14 @@ public class ParseAPI {
                         @Override
                         public void done(ParseObject parseObject, ParseException e) {
                             if (e == null) {
-                                ArrayList<ParseObject> users = (ArrayList<ParseObject>)parseObject.get("users");
+                                ArrayList<ParseObject> users = (ArrayList<ParseObject>)
+                                        parseObject.get("users");
                                 if (!users.contains(user)) {
                                     users.add(user);
                                 }
                                 parseObject.saveInBackground();
+
+                                sendPush(parseObject, users.get(0));
                             } else {
                                 Log.e(className, "Error getting event!");
                             }
@@ -83,6 +94,36 @@ public class ParseAPI {
                 }
             }
         });
+    }
+
+    private static void sendPush(ParseObject eatingEvent, ParseObject creator) {
+        try {
+            final ParseUser user = ParseUser.getCurrentUser();
+            Date lastPush = user.getDate("lastPush");
+
+            if (lastPush == null ||
+                    (new Date()).getTime() - lastPush.getTime() > 300000) {
+                ParseQuery pushQuery = ParseInstallation.getQuery();
+                creator.fetchIfNeeded();
+                pushQuery.whereEqualTo("fbId", creator.getString("fbId"));
+
+                ParsePush push = new ParsePush();
+                push.setQuery(pushQuery);
+                push.setMessage(user.get("firstName") + " is joining you at " +
+                        ((HashMap)eatingEvent.fetchIfNeeded().get("restaurantObj")).get("name"));
+                push.sendInBackground(new SendCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        user.put("lastPush",
+                                new GregorianCalendar(
+                                        Calendar.getInstance().getTimeZone()).getTime());
+                        user.saveInBackground();
+                    }
+                });
+            }
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
     }
 
     public static void leaveEvent(final ParseObject user,

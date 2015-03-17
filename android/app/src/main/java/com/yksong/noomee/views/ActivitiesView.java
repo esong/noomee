@@ -134,7 +134,7 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
         // if reload the list
         if (skip == 0) {
             EatingEvent currentFirst = ((EventAdapter)mRecList.getAdapter()).getFirstItem();
-            if ( currentFirst == null || currentFirst.compareTo(result.get(0)) != 0) {
+            if ( currentFirst == null || !currentFirst.equals(result.get(0))) {
                 mPreviousTotal = 0;
                 eventAdapter = new EventAdapter(result);
                 mRecList.setAdapter(eventAdapter);
