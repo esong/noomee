@@ -81,10 +81,13 @@ public class YelpAPI {
         requestSecond.addQuerystringParameter("offset", String.valueOf(20));
         String responseSecond = sendRequestAndGetResponse(requestSecond);
 
-        int indexEnd = responseFirst.lastIndexOf("]");
-        int indexFirst = responseSecond.indexOf("[");
-        return responseFirst.substring(0, indexEnd) + "," + responseSecond.substring(indexFirst + 1);
-
+        int indexEndFirst = responseFirst.lastIndexOf("]");
+        int indexFirstSecond = responseSecond.indexOf("[");
+        int indexEndSecond = responseSecond.lastIndexOf("]");
+        if (indexFirstSecond + 1 == indexEndSecond) {
+            return responseFirst;
+        }
+        return responseFirst.substring(0, indexEndFirst) + "," + responseSecond.substring(indexFirstSecond + 1);
     }
 
     /**
