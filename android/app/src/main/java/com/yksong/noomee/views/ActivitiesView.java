@@ -224,19 +224,27 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
             contactViewHolder.mTimeText.setText(
                     DateUtils.getRelativeTimeSpanString(event.createdTime.getTime()));
             contactViewHolder.mIsJoin=false;
-            contactViewHolder.mButton.setText("Join");
 
-            for(int count=0;count<event.users.size();count++){
-                FacebookUser user = event.users.get(count);
+            final boolean past = event.time.getTime() < System.currentTimeMillis();
+            if (!past) {
+                contactViewHolder.mButton.setVisibility(VISIBLE);
+                contactViewHolder.mButton.setText("Join");
 
-                if( user.mId.compareTo((String)(ParseUser.getCurrentUser().get("fbId")))==0 ){
-                    contactViewHolder.mButton.setText("Unjoin");
-                    if(count==0){
-                        contactViewHolder.mButton.setText("Cancel");
+                for(int count=0;count<event.users.size();count++){
+                    FacebookUser user = event.users.get(count);
+
+                    if( user.mId.compareTo((String)(ParseUser.getCurrentUser().get("fbId")))==0 ){
+                        contactViewHolder.mButton.setText("Unjoin");
+                        if(count==0){
+                            contactViewHolder.mButton.setText("Cancel");
+                        }
+                        contactViewHolder.mIsJoin = true;
                     }
-                    contactViewHolder.mIsJoin = true;
                 }
+            } else {
+                contactViewHolder.mButton.setVisibility(GONE);
             }
+
 
             final List<FacebookUser> list = event.users;
             contactViewHolder.mButton.setOnClickListener(new OnClickListener() {
@@ -256,14 +264,16 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
                             contactViewHolder.mIsJoin = true;
                             contactViewHolder.mButton.setText("Unjoin");
                             contactViewHolder.mListPeople.setText(
-                                    "You and " + (list.size()-1)+" others are going.");
+                                    "You and " + (list.size()-1) + " others" +
+                                            (past ? " went." : " are going."));
                         } else {
                             list.remove(new FacebookUser(curId,name));
                             ParseAPI.leaveEvent(ParseUser.getCurrentUser(), event.eventId);
                             contactViewHolder.mIsJoin = false;
                             contactViewHolder.mButton.setText("Join");
                             contactViewHolder.mListPeople.setText(event.users.get(0).mName +
-                                    " and "+(list.size()-1)+" others are going.");
+                                    " and "+(list.size()-1)+" others" +
+                                    (past ? " went." : " are going."));
                         }
                     }
                 }
@@ -271,10 +281,11 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
 
             String mListPeople = "";
             if( contactViewHolder.mIsJoin ){
-                mListPeople = "You and " + (event.users.size()-1) + " others are going.";
+                mListPeople = "You and " + (event.users.size()-1) + " others" +
+                        (past ? " went." : " are going.");
             } else{
                 mListPeople = event.users.get(0).mName+" and "
-                        + (event.users.size()-1) + " others are going.";
+                        + (event.users.size()-1) + " others" + (past ? " went." : " are going.");
             }
             contactViewHolder.mListPeople.setText(mListPeople);
             contactViewHolder.mListPeople.setOnClickListener(new OnClickListener() {
