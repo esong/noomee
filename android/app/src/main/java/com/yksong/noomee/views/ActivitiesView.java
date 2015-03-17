@@ -183,9 +183,11 @@ public class ActivitiesView extends FrameLayout implements SwipeRefreshLayout.On
         }
 
         private void loadPicture(String url, ImageView view) {
-            Picasso.with(getContext())
-                    .load(YelpUtil.switchToLsImageUrl(url))
-                    .into(view);
+            if (url != null) {
+                Picasso.with(getContext())
+                        .load(YelpUtil.switchToLsImageUrl(url))
+                        .into(view);
+            }
         }
 
         @Override
