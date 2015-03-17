@@ -70,7 +70,7 @@ public class NewEventActivity extends ActionBarActivity {
         now.setToNow();
 
         //set event initial values
-        eventTimeHour = now.hour;
+        eventTimeHour = now.hour + 1 % 23;
         eventTimeMinute = now.minute;
         eventDateYear = now.year;
         eventDateMonth = now.month;
