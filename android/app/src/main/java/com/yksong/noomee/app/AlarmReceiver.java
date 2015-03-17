@@ -43,6 +43,10 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         final Location location = mGeoProvider.getLocation();
 
+        if (intent.getStringExtra("Time") == null) {
+            return;
+        }
+
         if (location != null) {
             Task.callInBackground(new Callable<Restaurant>() {
                 @Override
@@ -74,22 +78,22 @@ public class AlarmReceiver extends BroadcastReceiver {
 
                     bigPictureStyle.setSummaryText(contentText);
 
-                    Intent intent = new Intent(context, NewEventActivity.class);
+                    Intent newEventIntent = new Intent(context, NewEventActivity.class);
 
-                    intent.putExtra("restaurantName", restaurant.name);
-                    intent.putExtra("restaurantId", restaurant.id);
+                    newEventIntent.putExtra("restaurantName", restaurant.name);
+                    newEventIntent.putExtra("restaurantId", restaurant.id);
 
                     PendingIntent yelpUrlIntent = PendingIntent.getActivity(context, 0,
                             new Intent(Intent.ACTION_VIEW, Uri.parse(restaurant.mobile_url)),
                             PendingIntent.FLAG_ONE_SHOT );
                     PendingIntent postIntent = PendingIntent.getActivity(context, 0,
-                            intent, PendingIntent.FLAG_ONE_SHOT);
+                            newEventIntent, PendingIntent.FLAG_ONE_SHOT);
 
-                    String message = "It's " + intent.getStringExtra("Time") + "time !";
+                    String message = "It's " + intent.getStringExtra("Time") + " time !";
 
                     final NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(context)
-                                    .setSmallIcon(R.drawable.ic_launcher)
+                                    .setSmallIcon(R.drawable.ic_push)
                                     .setColor(context.getResources().getColor(R.color.colorPrimary))
                                     .setContentTitle(message)
                                     .setContentText(contentText)
