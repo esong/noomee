@@ -68,16 +68,18 @@ public class YelpAPI {
     }
 
     public String searchForBusinessesByLatLong(String term, Double lati, Double longi) {
-        OAuthRequest request = createOAuthRequest(SEARCH_PATH);
-        request.addQuerystringParameter("term", term);
-        request.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
-        request.addQuerystringParameter("radius_filter", String.valueOf(RADIUS_LIMIT));
-        String responseFirst = sendRequestAndGetResponse(request);
+        OAuthRequest requestFirst = createOAuthRequest(SEARCH_PATH);
+        requestFirst.addQuerystringParameter("term", term);
+        requestFirst.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
+        requestFirst.addQuerystringParameter("radius_filter", String.valueOf(RADIUS_LIMIT));
+        requestFirst.addQuerystringParameter("sort", String.valueOf(1));
+        String responseFirst = sendRequestAndGetResponse(requestFirst);
 
         OAuthRequest requestSecond = createOAuthRequest(SEARCH_PATH);
         requestSecond.addQuerystringParameter("term", term);
         requestSecond.addQuerystringParameter("ll", String.format("%f,%f", lati, longi));
         requestSecond.addQuerystringParameter("radius_filter", String.valueOf(RADIUS_LIMIT));
+        requestSecond.addQuerystringParameter("sort", String.valueOf(1));
         requestSecond.addQuerystringParameter("offset", String.valueOf(20));
         String responseSecond = sendRequestAndGetResponse(requestSecond);
 
