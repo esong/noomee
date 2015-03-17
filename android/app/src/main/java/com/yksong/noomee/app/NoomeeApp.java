@@ -12,13 +12,12 @@ import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParsePush;
-import com.parse.PushService;
 import com.parse.SaveCallback;
 import com.yksong.noomee.BuildConfig;
-import com.yksong.noomee.MainActivity;
 import com.yksong.noomee.R;
 import com.yksong.noomee.network.NoomeeClient;
 import com.yksong.noomee.util.GeoProvider;
+
 
 import java.util.Calendar;
 import java.util.Random;
@@ -61,14 +60,13 @@ public class NoomeeApp extends Application {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 11);
-        calendar.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 11);
+        cal.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
 
         intent = new Intent(this, AlarmReceiver.class);
@@ -76,11 +74,11 @@ public class NoomeeApp extends Application {
         pendingIntent = PendingIntent.getBroadcast(this, 1, intent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
-        calendar.set(Calendar.HOUR_OF_DAY, 17);
-        calendar.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
+        cal.set(Calendar.HOUR_OF_DAY, 17);
+        cal.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
 
         alarmManager.cancel(pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 }
