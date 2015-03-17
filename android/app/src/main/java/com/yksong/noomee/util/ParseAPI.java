@@ -12,6 +12,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.SendCallback;
+import com.yksong.noomee.BuildConfig;
 import com.yksong.noomee.model.EatingEvent;
 import com.yksong.noomee.model.Restaurant;
 import com.yksong.noomee.start.StartActivity;
@@ -101,7 +102,7 @@ public class ParseAPI {
             final ParseUser user = ParseUser.getCurrentUser();
             Date lastPush = user.getDate("lastPush");
 
-            if (lastPush == null ||
+            if (BuildConfig.DEBUG || lastPush == null ||
                     (new Date()).getTime() - lastPush.getTime() > 300000) {
                 ParseQuery pushQuery = ParseInstallation.getQuery();
                 creator.fetchIfNeeded();
