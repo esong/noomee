@@ -5,13 +5,14 @@
     android:orientation="vertical"
     android:paddingLeft="12dp"
     android:paddingRight="12dp"
-    android:paddingTop="8dp"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true">
+    android:paddingTop="8dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true">
         <ImageView
             android:id="@+id/restaurant_image"
             android:layout_width="50dp"
@@ -39,10 +40,26 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_margin="3dp"
-        android:src="@drawable/powered_by_yelp_white"
-        android:layout_width="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button android:id="@+id/post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post"
+            android:textSize="11sp"
+            android:textColor="@color/colorPrimaryDark"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <ImageView
+            android:src="@drawable/powered_by_yelp_white"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 </LinearLayout>

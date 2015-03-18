@@ -194,7 +194,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
 
         TextView nameTextView = (TextView) restaurantView.findViewById(R.id.restaurant_name);
         nameTextView.setText(restaurant.name);
-        nameTextView.setOnClickListener(new OnClickListener() {
+        restaurantView.findViewById(R.id.content).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW,
@@ -203,7 +203,7 @@ public class DeciderView extends FrameLayout implements ShakeDetector.Listener {
             }
         });
 
-        restaurantView.setOnClickListener(new OnClickListener() {
+        restaurantView.findViewById(R.id.post_button).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), NewEventActivity.class);
