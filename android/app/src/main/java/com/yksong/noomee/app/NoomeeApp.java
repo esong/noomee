@@ -40,7 +40,7 @@ public class NoomeeApp extends Application {
 
         GeoProvider.initialize(this);
         NoomeeClient.initialize(this);
-        startAlarmManager();
+        AlarmScheduler.scheduleRecommendPush(this);
 
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
@@ -52,33 +52,5 @@ public class NoomeeApp extends Application {
                 }
             }
         });
-    }
-
-    private void startAlarmManager() {
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        intent.putExtra("Time", "Lunch");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
-                PendingIntent.FLAG_CANCEL_CURRENT);
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 11);
-        cal.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pendingIntent);
-
-        intent = new Intent(this, AlarmReceiver.class);
-        intent.putExtra("Time", "Dinner");
-        pendingIntent = PendingIntent.getBroadcast(this, 1, intent,
-                PendingIntent.FLAG_CANCEL_CURRENT);
-
-        cal.set(Calendar.HOUR_OF_DAY, 17);
-        cal.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
-
-        alarmManager.cancel(pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 }
