@@ -5,10 +5,16 @@ package com.yksong.noomee.util;
  */
 public class YelpUtil {
     public static String switchToLsImageUrl(String url) {
+        if (url == null) {
+            return null;
+        }
         return url.substring(0, url.lastIndexOf('/')+1).concat("ls.jpg");
     }
 
     public static String switchTo348ImageUrl(String url) {
+        if (url == null) {
+            return null;
+        }
         return url.substring(0, url.lastIndexOf('/')+1).concat("348s.jpg");
     }
 }
