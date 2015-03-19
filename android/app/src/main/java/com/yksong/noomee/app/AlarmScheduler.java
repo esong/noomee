@@ -30,6 +30,10 @@ public class AlarmScheduler {
             cal.set(Calendar.HOUR_OF_DAY, 11);
             cal.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
 
+            if (cal.getTimeInMillis() < System.currentTimeMillis()) {
+                cal.add(Calendar.DATE, 1);
+            }
+
             AlarmManager alarmManager = (AlarmManager)
                     context.getSystemService(Context.ALARM_SERVICE);
             alarmManager.cancel(pendingIntent);
@@ -44,6 +48,10 @@ public class AlarmScheduler {
 
             cal.set(Calendar.HOUR_OF_DAY, 17);
             cal.set(Calendar.MINUTE, 30 + new Random().nextInt(10));
+
+            if (cal.getTimeInMillis() < System.currentTimeMillis()) {
+                cal.add(Calendar.DATE, 1);
+            }
 
             alarmManager.cancel(pendingIntent);
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
