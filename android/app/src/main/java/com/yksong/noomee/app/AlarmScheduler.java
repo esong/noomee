@@ -16,13 +16,13 @@ public class AlarmScheduler {
 
     public static void scheduleRecommendPush(Context context) {
         Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra("Time", "Lunch");
         intent.setAction(action);
 
         boolean alarmUp = (PendingIntent.getBroadcast(context, 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT) != null);
+                intent, PendingIntent.FLAG_NO_CREATE) != null);
 
         if (!alarmUp) {
-            intent.putExtra("Time", "Lunch");
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
